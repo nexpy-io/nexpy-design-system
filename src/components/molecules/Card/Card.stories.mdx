@@ -1,0 +1,57 @@
+import { Meta } from '@storybook/addon-docs'
+
+import { Canvas } from 'core/storybookWrappers'
+
+import { Card } from './Card'
+
+<Meta title='Components/Card' />
+
+# Card
+
+This is a simple HTML `div` element with xstyled super powers and Card style by default.
+
+## Variants
+
+- variant: `default` | `center` | `centerScreen` | `vAlign` | `hAlign`
+
+  default value: `default`
+
+  - `default`: Nothing special
+  - `center`: Center the element in the parent
+  - `centerScreen`: Center the element using screen size
+  - `vAlign`: Vertically align the element in the parent
+  - `hAlign`: Horizontally align the element in the parent
+
+- direction: `default` | `row` | `column`
+
+  default value: `default`
+
+  - `default`: Nothing special
+  - `row`: Direction of the children is row
+  - `column`: Direction of the children is column
+
+- paddingMode: `default` | `primary` | `secondary`
+
+  default value: `primary`
+
+  - `default`: Nothing special
+  - `primary`: Medium padding
+  - `secondary`: Big padding
+
+## Usage
+
+<Canvas>
+  <Card>Content</Card>
+</Canvas>
+
+<Canvas>
+  <Card bg='#55c4ed' fontSize='20px' color='black' p='20px'>
+    With style props
+  </Card>
+</Canvas>
+
+<Canvas>
+  <Card variant='hAlign' fontSize='20px' bg='#956ded' color='white'>
+    More complex example with style props
+  </Card>
+</Canvas>
