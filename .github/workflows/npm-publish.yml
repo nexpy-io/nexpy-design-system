@@ -29,6 +29,7 @@ jobs:
         with:
           node-version: 17
           registry-url: https://registry.npmjs.org/
+      - run: echo "//registry.npmjs.org/:_authToken=${{secrets.npm_token}}">.npmrc
       - run: npm install --global yarn
       - run: yarn
       - run: yarn publish --no-git-tag-version
