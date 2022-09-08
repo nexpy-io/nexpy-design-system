@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/addon-docs'
+
+import { Canvas } from 'core/storybookWrappers'
+
+import { Text } from './Text'
+
+<Meta title='Components/Text' />
+
+# Text
+
+This is a simple HTML `p` element with xstyled super powers.
+
+Use the prop `as` to convert the component to another HTML text element like `h1`.
+
+Using the prop `as` to convert the component to `h1` or `h2`, the component uses
+automatically the variants `heading` and `subheading` respectively.
+
+`h3`, `h4`, `h5`, `h6` is all `subheading` by default.
+
+To override this behavior, use the prop `variant` to set the variant manually.
+
+## Variants
+
+- variant: `heading` | `subheading` | `body` | `caption`
+
+  default value: `body`
+
+  - `heading`: Heading text size
+  - `subheading`: Subheading text size
+  - `body`: Body text size
+  - `caption`: Caption text size
+
+## Usage
+
+<Canvas>
+  <Text as='h1'>Content</Text>
+</Canvas>
+
+<Canvas>
+  <Text variant='subheading'>Content</Text>
+</Canvas>
+
+<Canvas>
+  <Text variant='body'>Content</Text>
+</Canvas>
+
+<Canvas>
+  <Text variant='caption'>Content</Text>
+</Canvas>
