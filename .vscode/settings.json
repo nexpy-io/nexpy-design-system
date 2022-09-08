@@ -1,0 +1,19 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "files.associations": {
+    "*.env*": "env"
+  },
+  "workbench.tree.indent": 15,
+  "auto-close-tag.activationOnLanguage": [
+    "xml",
+    "html",
+    "js",
+    "jsx",
+    "ts",
+    "tsx",
+    "mdx"
+  ]
+}

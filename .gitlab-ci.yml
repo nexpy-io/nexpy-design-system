@@ -1,0 +1,27 @@
+image: node:17
+
+stages:
+  - build-publish
+
+build-publish:
+  stage: build-publish
+  only:
+    - main
+  cache:
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules/
+      - dist/
+  script:
+    - yarn
+    - yarn type:check
+    - NODE_ENV='production' yarn build:dist
+    - git config --global user.email "${CI_EMAIL}" && git config --global user.name "${CI_USERNAME}"
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}">.npmrc
+    - yarn
+    - yarn publish --patch --no-git-tag-version
+    - git add .
+    - 'git commit -m "chore(release): ${CI_COMMIT_TAG} [skip ci]" --no-verify'
+    - git push "https://${GITLAB_USER_NAME}:${CI_ACCESS_TOKEN}@${CI_REPOSITORY_URL#*@}" "HEAD:${CI_COMMIT_REF_NAME}" -o skip-ci --no-verify

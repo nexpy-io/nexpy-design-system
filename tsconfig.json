@@ -1,0 +1,19 @@
+{
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "target": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "jsx": "react",
+    "sourceMap": true,
+    "baseUrl": "./src/"
+  }
+}
