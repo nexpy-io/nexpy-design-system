@@ -1,0 +1,103 @@
+import { Meta } from '@storybook/addon-docs'
+
+import { Canvas } from 'core/storybookWrappers'
+
+import { SelectStory } from './SelectStory'
+
+<Meta title='Components/Select' />
+
+# Select
+
+This is the a Select component with xstyled super powers and another elements inside doing some magics.
+
+## Types
+
+The component exports the option type for convenience.
+
+```tsx
+export type SelectOption = Record<string, any>
+```
+
+## Props
+
+- `enableSearch`?: { noOptionsMessage: string }
+
+  An object containing the the messege to show when there are no options to show.
+  Search is enabled when this props is passed.
+
+- `label`: string
+
+  The label of select showed in the top-left corner of the field container.
+
+- `error`?: string | undefined | null
+
+  The error message showed in the bottom-left corner of the field container.
+
+- `placeholder`?: string | undefined
+
+  Placeholder message.
+
+- `name`: string
+
+  The name of the select input.
+
+- `options`: Array<{ label: string, value: any }>
+
+  The options to show in the select.
+
+- `isMulti`: boolean
+
+  Enable multi-select mode.
+
+- `control`: Control&lt;any, any>
+
+  The control of the select from react-hook-form useForm hook.
+
+## Usage
+
+```tsx
+<Select<FormValues>
+  name='select'
+  label='Select'
+  options={options}
+  control={control}
+  w='300px'
+/>
+<Select<FormValues>
+  name='select-search'
+  label='Select With Search'
+  options={options}
+  control={control}
+  enableSearch={{ noOptionsMessage: 'No options found.' }}
+  w='300px'
+/>
+<Select<FormValues>
+  name='error-select'
+  label='Select with Error'
+  options={options}
+  control={control}
+  w='300px'
+  error='This is an error'
+/>
+<Select<FormValues>
+  name='multi-select'
+  label='Multi Select'
+  isMulti
+  options={options}
+  control={control}
+  w='300px'
+  error='You can select multiple options'
+/>
+<Select<FormValues>
+  name='multi-select'
+  label='Multi Select'
+  disabled
+  options={options}
+  control={control}
+  w='300px'
+/>
+```
+
+<Canvas>
+  <SelectStory /> // The source code is above
+</Canvas>

@@ -1,0 +1,82 @@
+import { Meta } from '@storybook/addon-docs'
+
+import { Canvas } from 'core/storybookWrappers'
+
+import { Field } from './Field'
+
+<Meta title='Components/Field' />
+
+# Field
+
+This is the `Input` component with xstyled super powers and another elements inside doing some magics.
+
+## Props
+
+- `label`: string
+
+  The label of input showed in the top-left corner of the field container.
+
+- `error`?: string | undefined | null
+
+  The error message showed in the bottom-left corner of the field container.
+
+- `browserAutoComplete`?: string | undefined
+
+  The react input prop `autoComplete` was renamed for it.
+
+- `prefixElement`?: ReactNode
+
+  An element to be shown before input inside the field container.
+
+- `sufixElement`?: ReactNode
+
+  An element to be shown after input inside the field container.
+
+- `fileTypeOptions`?: {
+  accept?: string,
+  inputMessage: string
+  }
+
+- `type`?: 'date'
+  | 'datetime-local'
+  | 'month'
+  | 'number'
+  | 'password'
+  | 'search'
+  | 'text'
+  | 'time'
+  | 'week'
+  | 'email'
+  | 'url'
+  | 'file'
+
+## Usage
+
+<Canvas>
+  <Field name='cat-name' type='url' label='Cat Name' w='400px' />
+</Canvas>
+
+<Canvas>
+  <Field name='date' type='date' label='Date' w='400px' />
+</Canvas>
+
+<Canvas>
+  <Field name='month' type='month' label='Month' w='400px' />
+</Canvas>
+
+<Canvas>
+  <Field name='text' type='text' label='Cat Name' error='This is an error' w='400px' />
+</Canvas>
+
+<Canvas>
+  <Field
+    name='file'
+    fileTypeOptions={{
+      accept: 'image/png, image/jpeg',
+      inputMessage: 'Enter a file',
+    }}
+    type='file'
+    label='Cat Photo'
+    w='400px'
+  />
+</Canvas>
