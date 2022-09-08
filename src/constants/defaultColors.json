@@ -1,0 +1,16 @@
+{
+  "systemPrimary": "#9855ff",
+  "systemDanger": "#D9534F",
+  "systemWarning": "#F0AD4E",
+  "systemSafe": "#6BB85C",
+
+  "systemFocus": "#8534ff",
+  "systemDisabled": "#e5e5e5",
+
+  "systemText": "#1a2027",
+
+  "systemBlack": "#28262C",
+  "systemLightGrey": "#64616b",
+  "systemTranslucidBlack": "rgba(0, 0, 0, 0.3)",
+  "systemWhite": "#fefeff"
+}

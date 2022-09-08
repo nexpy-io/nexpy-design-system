@@ -1,0 +1,211 @@
+import { Meta } from '@storybook/addon-docs'
+
+<Meta title='Settings/Theming' />
+
+# Defaults
+
+The system already has a default theme set up so you don't have to reset
+everything from scratch. The theme's values were designed taking into
+account the community's best practices, so it is highly recommended to
+only overwrite what is really necessary.
+
+A React provider called `ThemeProvider` is used to set all theme values in your project.
+See `Exports/Providers` in this documentation for more information about this component.
+
+**Important:** You don't need to set the whole theme from
+scratch if you are creating custom theme.
+
+Just pass to the Provider what you want to **overwrite** and it will automatically take
+care of that task.
+
+The defaults settings you can see in the bottom of this page.
+
+## Usage
+
+In your root component:
+
+```tsx
+import { ThemeProvider } from '@nexpy/design-system'
+
+import App from './App'
+
+const RootApp = () => (
+  <ThemeProvider theme={yourCustomTheme}>
+    <App />
+  </ThemeProvider>
+)
+
+export default RootApp
+```
+
+For more information about how to use and define the custom themes,
+see the [themes](https://xstyled.dev/docs/theme/) section of xstyled
+documentation. Take a look at how to change the specific default colors
+of design system components in the `Settings/Default Colors` section.
+
+## Defaults Definition
+
+This is the default out-of-the-box theme value.
+
+```ts
+const animations = {
+  spin: 'x-spin 1s linear infinite',
+  ping: 'x-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
+  pulse: 'x-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+  bounce: 'x-bounce 1s infinite',
+}
+
+const fonts = {
+  mono: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`,
+  serif: `ui-serif, Georgia, Cambria, "Times New Roman", Times, serif`,
+  sans: `ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`,
+}
+
+const fontSizes = {
+  xs: '1.4rem',
+  sm: '1.6rem',
+  default: '1.8rem',
+  lg: '2rem',
+  xl: '2.4rem',
+  '2xl': '2.6rem',
+  '3xl': '3rem',
+}
+
+const fontWeights = {
+  hairline: '100',
+  thin: '200',
+  light: '300',
+  normal: '400',
+  medium: '500',
+  semibold: '600',
+  bold: '700',
+  extrabold: '800',
+  black: '900',
+}
+
+const letterSpacings = {
+  tighter: '-0.05em',
+  tight: '-0.025em',
+  normal: '0em',
+  wide: '0.025em',
+  wider: '0.05em',
+  widest: '0.1em',
+}
+
+const lineHeights = {
+  none: 1,
+  tight: 1.25,
+  snug: 1.375,
+  normal: 1.5,
+  relaxed: 1.625,
+  loose: 2,
+  3: '.75rem',
+  4: '1rem',
+  5: '1.25rem',
+  6: '1.5rem',
+  7: '1.75rem',
+  8: '2rem',
+  9: '2.25rem',
+  10: '2.5rem',
+}
+
+const radii = {
+  none: '0',
+  sm: '0.125rem',
+  default: '0.25rem',
+  md: '0.375rem',
+  lg: '0.5rem',
+  xl: '0.75rem',
+  '2xl': '1rem',
+  '3xl': '1.5rem',
+  full: '9999px',
+}
+
+const screens = {
+  _: 0,
+  xs: 0,
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  '2xl': 1536,
+}
+
+const shadows = {
+  xs: '0 0 0 1px rgba(0, 0, 0, 0.05)',
+  sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+  default: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+  md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+  lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+  xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+  '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+  inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+  outline: '0 0 0 3px rgba(66, 153, 225, 0.5)',
+}
+
+const space = {
+  1: '0.1rem',
+  2: '0.2rem',
+  4: '0.4rem',
+  8: '0.8rem',
+  10: '1rem',
+  16: '1.6rem',
+  18: '1.8rem',
+  20: '2rem',
+  24: '2.4rem',
+  30: '3rem',
+  32: '3.2rem',
+  40: '4rem',
+  46: '4.6rem',
+  48: '4.8rem',
+  50: '5rem',
+  60: '6rem',
+  64: '6.4rem',
+  70: '7rem',
+  76: '7.6rem',
+  80: '8rem',
+  88: '8.8rem',
+  90: '9rem',
+  100: '10rem',
+  120: '12rem',
+  124: '12.4rem',
+  170: '17rem',
+  172: '17.2rem',
+  190: '19rem',
+  196: '19.6rem',
+  200: '20rem',
+}
+
+const transitionProperties = {
+  default: [
+    'background-color',
+    'border-color',
+    'color',
+    'fill',
+    'stroke',
+    'opacity',
+    'box-shadow',
+    'transform',
+  ],
+  colors: ['background-color', 'border-color', 'color', 'fill', 'stroke'],
+  opacity: ['opacity'],
+  shadow: ['box-shadow'],
+  transform: ['transform'],
+}
+
+export const defaultTheme = {
+  animations,
+  fonts,
+  fontSizes,
+  fontWeights,
+  letterSpacings,
+  lineHeights,
+  radii,
+  screens,
+  shadows,
+  space,
+  transitionProperties,
+}
+```
+
+The colors is defined with another method. See `Settings/Default Colors`.
