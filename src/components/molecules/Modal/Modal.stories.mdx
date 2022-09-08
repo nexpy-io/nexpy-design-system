@@ -1,0 +1,61 @@
+import { Meta } from '@storybook/addon-docs'
+
+import { Canvas } from 'core/storybookWrappers'
+
+import ModalStory from './ModalStory'
+
+<Meta title='Components/Modal' />
+
+# Modal
+
+This is a Modal component with xstyled super powers.
+
+## Props & Children
+
+Obs.: Types used in this Doc:
+
+```ts
+import React, { ReactNode, Dispatch, SetStateAction } from 'react'
+
+type ModalFunctionNotation = {
+  isOpen: boolean
+  setIsOpen: Dispatch<SetStateAction<boolean>>
+}
+```
+
+- render: (params: ModalFunctionNotation) => ReactNode
+
+  A function that rentuns the components to render inside Modal.
+
+- externalIsOpen?: boolean
+
+  A boolean that indicates if the Modal is open or not. When used, internal state is ignored, and setIsOpen does nothing.
+
+- children?: (params: ModalFunctionNotation) => ReactNode | null
+
+  A function that returns the components to render in the place of your JSX that you putted the Modal component.
+
+## Usage
+
+```tsx
+<Modal
+  render={({ isOpen, setIsOpen }) => (
+    <div>
+      <button type='button' onClick={() => setIsOpen(false)}>
+        close
+      </button>
+      <p>I'm a Modal and i'm {isOpen ? 'opened' : 'closed'}</p>
+    </div>
+  )}
+>
+  {({ setIsOpen }) => (
+    <button type='button' onClick={() => setIsOpen(true)}>
+      Open
+    </button>
+  )}
+</Modal>
+```
+
+<Canvas>
+  <ModalStory /> // The source code is above
+</Canvas>
