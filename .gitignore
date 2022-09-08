@@ -91,3 +91,6 @@ yarn-error.log*
 
 # storybook
 storybook-static
+
+# npm
+.npmrc
