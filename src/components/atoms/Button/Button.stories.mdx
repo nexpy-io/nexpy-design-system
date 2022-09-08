@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/addon-docs'
+
+import { Canvas } from 'core/storybookWrappers'
+
+import { Button } from './Button'
+
+<Meta title='Components/Button' />
+
+# Button
+
+This is a simple HTML `button` element with xstyled super powers.
+
+## Variants
+
+- variant: `contained` | `outlined` | `ghost`
+
+  default value: `contained`
+
+  - `contained`: A filled button with a shadow
+  - `outlined`: A button with a border and a shadow
+  - `ghost`: A button with no border and no shadow
+
+- size: `content` | `auto` | `small` | `medium` | `large`
+
+  default value: `content`
+
+  - `content`: The button will be the size according to the children
+  - `auto`: The button will be the size of full width from parent
+  - `small`: Fixed small size button
+  - `medium`: Fixed medium size button
+  - `large`: Fixed large size button
+
+- colorMode: `default` | `danger` | `warning` | `safe`
+
+  default value: `default`
+
+  - `default`: The button will be the systemPrimary color
+  - `danger`: The button will be the systemDanger color
+  - `warning`: The button will be the systemWarning color
+  - `safe`: The button will be the systemSafe color
+
+## Usage
+
+<Canvas>
+  <Button variant='outlined' size='medium' colorMode='danger'>
+    medium
+  </Button>
+</Canvas>
+
+<Canvas>
+  <Button variant='outlined' size='medium' colorMode='warning'>
+    warning
+  </Button>
+</Canvas>
+
+<Canvas>
+  <Button variant='contained' size='large' colorMode='safe'>
+    large
+  </Button>
+</Canvas>
+
+<Canvas>
+  <Button variant='ghost'>Ghost Button</Button>
+</Canvas>
+
+<Canvas>
+  <Button variant='contained' size='large' color='azure' bg='#ee44ee'>
+    Make it different easy
+  </Button>
+</Canvas>
