@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/addon-docs'
+
+import { Canvas } from 'core/storybookWrappers'
+
+import { Box } from './Box'
+
+<Meta title='Components/Box' />
+
+# Box
+
+This is a simple HTML `div` element with xstyled super powers.
+
+## Variants
+
+- variant: `default` | `center` | `centerScreen` | `vAlign` | `hAlign`
+
+  default value: `default`
+
+  - `default`: Nothing special
+  - `center`: Center the element in the parent
+  - `centerScreen`: Center the element using screen size
+  - `vAlign`: Vertically align the element in the parent
+  - `hAlign`: Horizontally align the element in the parent
+
+- direction: `default` | `row` | `column`
+
+  default value: `default`
+
+  - `default`: Nothing special
+  - `row`: Direction of the children is row
+  - `column`: Direction of the children is column
+
+## Usage
+
+<Canvas>
+  <Box>Content</Box>
+</Canvas>
+
+<Canvas>
+  <Box bg='#55c4ed' fontSize='20px' color='black' p='20px'>
+    With style props
+  </Box>
+</Canvas>
+
+<Canvas>
+  <Box
+    variant='hAlign'
+    borderRadius='25px'
+    fontSize='20px'
+    color='white'
+    bg='#7803c6'
+    p='20px'
+  >
+    More complex example with style props
+  </Box>
+</Canvas>

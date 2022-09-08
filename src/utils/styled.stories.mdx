@@ -1,0 +1,132 @@
+import { Meta } from '@storybook/addon-docs'
+
+<Meta title='Exports/Utils' />
+
+# Utils
+
+The design system exports some utility functions to your project.
+
+<br />
+
+## getVariant
+
+Need one parameter: An object with the following properties:
+
+- prop: The component prop name for the variant getter resolve the current variant name. (variant='white').
+- default:
+  The default variant for the variant getter if no prop defined or found in the component.
+
+  You can pass a synchronous function to get this default variant name and return it. This function will
+  receive the component's current props in the first parameter:
+
+  ```ts
+  const textVariant = getVariant<TextProps, TextVariants>({
+    prop: 'variant',
+    default: props => {
+      switch (props.as) {
+        case 'h1':
+          return 'heading'
+
+        case 'h2':
+        case 'h3':
+        case 'h4':
+        case 'h5':
+        case 'h6':
+          return 'subheading'
+
+        default:
+          return 'body'
+      }
+    },
+    variants: {
+      heading: css`
+        font-weight: medium;
+        font-size: lg;
+
+        @media (min-width: sm) {
+          font-size: 2xl;
+        }
+      `,
+      subheading: css`
+        font-size: default;
+
+        @media (min-width: sm) {
+          font-size: xl;
+        }
+      `,
+      body: css`
+        font-size: sm;
+
+        @media (min-width: sm) {
+          font-size: default;
+        }
+      `,
+      caption: css`
+        font-size: xs;
+
+        @media (min-width: sm) {
+          font-size: sm;
+        }
+      `,
+    },
+  })
+  ```
+
+- variants: An object with the following structure:
+
+```ts
+{
+  variantName: css`your style...`,
+  otherVariantExample: props => css`your style...`
+}
+```
+
+### Generics
+
+```ts
+type PossibleVariants = 'black' | 'white'
+
+type ComponentProps = VariantSystem<PossibleVariants>
+
+const colorVariant = getVariant<ComponentProps, PossibleVariants>(...)
+```
+
+### Usage:
+
+```ts
+import { getVariant, VariantSystem } from '@nexpy/design-system'
+import styled, { css } from '@xstyled/styled-components'
+
+type PossibleVariants = 'black' | 'white'
+
+type ComponentProps = VariantSystem<PossibleVariants>
+
+const colorVariant = getVariant<ComponentProps, PossibleVariants>({
+  prop: 'variant',
+  default: 'black',
+  variants: {
+    black: css`
+      color: white;
+      background: grey;
+    `,
+    white: css`
+      color: gray;
+      background: white;
+    `,
+  },
+})
+
+const MyComponent = styled.divBox<ComponentProps>`
+  ${colorVariant}
+`
+```
+
+And using the component:
+
+```tsx
+const Foo = () => (
+  <div>
+    <MyComponent variant='white'>bar</MyComponent>
+  </div>
+)
+```

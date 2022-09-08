@@ -1,0 +1,73 @@
+import { Meta } from '@storybook/addon-docs'
+
+<Meta title='Exports/Types' />
+
+# Types
+
+## VariantSystem
+
+Type used to create extra props type of any component that uses the
+getVariant function and all props provided by xstyled.
+
+This type creates by default a type equivalent to this one:
+
+```ts
+import { ComponentProps } from 'react'
+import { SystemProps } from '@xstyled/styled-components'
+
+type Variants = 'foo' | 'bar'
+
+type DivProps = {
+  myCustomComponentProp: string
+  variant?: Variants
+} & SystemProps &
+  ComponentProps<'div'>
+```
+
+And now, the same thing only using abstraction:
+
+```ts
+import { VariantSystem } from '@nexpy/design-system'
+
+type Variants = 'foo' | 'bar'
+
+type DivProps = VariantSystem<Variants, 'div'> & {
+  myCustomComponentProp: string
+}
+```
+
+Note that this type creates by default only the `variant` prop with you variant type and all props from xstyled.
+
+Any other props, including other variants, must be declared as `myCustomComponentProp`.
+
+## System
+
+If you need all xstyled props and default element props but no variant prop use System type:
+
+```ts
+import { System } from '@nexpy/design-system'
+
+type DivProps = System<'div'> & {
+  myCustomComponentProp: string
+}
+```
+
+## PropsWithAs
+
+To make component typing less generic, the `as` and `forwardedAs` props was omitted
+from the `VariantSystem` and `System` type constructors. If the `as` or `forwardedAs`
+props exists, it is not possible to guess which identifier will be passed, so the
+element is defined as generic automatically. If you need or prefer the one of the
+props to be included in your component props typing, use `PropsWithAs`.
+
+## WithChildren
+
+Implements type of children (ReactNode) for use in React 18. You can pass other props with generics.
+
+```ts
+import { WithChildren } from '@nexpy/design-system'
+
+type DivProps = WithChildren<{
+  myCustomComponentProp: string
+}>
+```
