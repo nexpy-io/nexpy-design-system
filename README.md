@@ -1,5 +1,7 @@
 # Nexpy Design System
 
+[![NPM Package](https://github.com/nexpy-io/nexpy-design-system/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/nexpy-io/nexpy-design-system/actions/workflows/npm-publish.yml)
+
 ## Docs
 
 You can visit the full documentation of available components and tools [here](https://nexpy-design-system.netlify.app/).
