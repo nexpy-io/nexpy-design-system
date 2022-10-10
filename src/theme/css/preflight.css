@@ -1,3 +1,10 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    box-shadow: 0 0 0 30px white inset !important;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
 [role='button'],
 button {
   cursor: pointer;
@@ -265,7 +272,6 @@ pre {
   background-color: transparent;
   border: 1px solid WindowFrame;
   color: inherit;
-  font: inherit;
   letter-spacing: inherit;
   padding: 0.25em 0.375em;
 }
