@@ -7,10 +7,12 @@ import { GlobalStyle, defaultTheme } from 'theme/internal'
 
 type ThemeProviderProps = {
   theme?: Record<string, unknown>
+  disablePortalContainer?: boolean
 }
 
 const ThemeProviderBase = ({
   theme: customTheme,
+  disablePortalContainer,
   children,
 }: PropsWithChildren<ThemeProviderProps>) => {
   const mergedTheme = useMemo(() => merge({}, defaultTheme, customTheme), [customTheme])
@@ -19,13 +21,15 @@ const ThemeProviderBase = ({
     <BaseThemeProvider theme={mergedTheme}>
       <GlobalStyle />
       {children}
-      <div id='root-design-system-portals' />
+
+      {disablePortalContainer !== true ? <div id='root-design-system-portals' /> : null}
     </BaseThemeProvider>
   )
 }
 
 ThemeProviderBase.defaultProps = {
   theme: {},
+  disablePortalContainer: false,
 }
 
 const ThemeProvider = memo(ThemeProviderBase)
