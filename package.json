@@ -103,10 +103,6 @@
       "optional": true
     }
   },
-  "resolutions": {
-    "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6"
-  },
   "dependencies": {
     "@babel/runtime": "^7.19.4",
     "@nexpy/react-easy-context-api": "^1.0.2",
