@@ -1,4 +1,4 @@
-const dotenv = require('dotenv')
+import dotenv from 'dotenv'
 
 dotenv.config()
 
@@ -12,9 +12,9 @@ import externals from 'rollup-plugin-node-externals'
 import includePaths from 'rollup-plugin-includepaths'
 import { terser } from 'rollup-plugin-terser'
 
-import pkg from './package.json'
+import pkg from './package.json' assert { type: 'json' }
 
-const nodeEnv = process.env.NODE_ENV
+const nodeEnv = process.env.NODE_ENV || 'production'
 
 console.log(`Starting build with NODE_ENV=${nodeEnv}`)
 
