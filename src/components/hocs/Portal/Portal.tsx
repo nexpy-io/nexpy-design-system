@@ -3,6 +3,8 @@
 import React, { useEffect, useState, memo, PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
 
+import { ROOT_DESIGN_SYSTEM_PORTALS_CONTAINER_ID } from 'constants/elements'
+
 type PortalProps = {
   enabled?: boolean
 }
@@ -23,7 +25,7 @@ const PortalBase = ({ children, enabled }: PropsWithChildren<PortalProps>) => {
   return mounted
     ? createPortal(
         children,
-        document.querySelector('#root-design-system-portals') as Element
+        document.querySelector(`#${ROOT_DESIGN_SYSTEM_PORTALS_CONTAINER_ID}`) as Element
       )
     : null
 }
