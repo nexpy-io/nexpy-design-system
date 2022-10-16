@@ -3,6 +3,7 @@ import React, { useMemo, memo, PropsWithChildren } from 'react'
 import { ThemeProvider as BaseThemeProvider } from '@xstyled/styled-components'
 import merge from 'lodash/merge'
 
+import { ROOT_DESIGN_SYSTEM_PORTALS_CONTAINER_ID } from 'constants/elements'
 import { GlobalStyle, defaultTheme } from 'theme/internal'
 
 type ThemeProviderProps = {
@@ -22,7 +23,9 @@ const ThemeProviderBase = ({
       <GlobalStyle />
       {children}
 
-      {disablePortalContainer !== true ? <div id='root-design-system-portals' /> : null}
+      {disablePortalContainer !== true ? (
+        <div id={ROOT_DESIGN_SYSTEM_PORTALS_CONTAINER_ID} />
+      ) : null}
     </BaseThemeProvider>
   )
 }
