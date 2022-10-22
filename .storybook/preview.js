@@ -1,4 +1,4 @@
-import { themes } from '@storybook/theming';
+import { themes } from '@storybook/theming'
 
 import 'theme/css/preflight.css'
 import './assets/global-style.css'

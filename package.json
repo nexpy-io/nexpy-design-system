@@ -6,7 +6,7 @@
     "react",
     "typescript"
   ],
-  "version": "2.1.0",
+  "version": "2.1.1",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
@@ -66,6 +66,7 @@
     "cross-env": "^7.0.3",
     "css-minify": "^2.0.0",
     "cz-conventional-changelog": "^3.3.0",
+    "darkreader": "^4.9.58",
     "dotenv": "^16.0.3",
     "esbuild": "^0.14.25",
     "eslint": "^8.25.0",
