@@ -1,0 +1,43 @@
+import { Meta } from '@storybook/addon-docs'
+
+import { Canvas } from 'core/storybookWrappers'
+
+import { X } from './X'
+
+<Meta title='Components/X' />
+
+# X
+
+The most powerful component from the design system. This is the FUTURE!
+
+X component can exist as any HTML tag.
+
+Remember, it uses all the theme settings as well as other components.
+
+## Usage
+
+Try using:
+
+```tsx
+<X.div>something here</X.div>
+```
+
+You can pass all the style props, see one example:
+
+```tsx
+<X.div bg='blue'>something here</X.div>
+```
+
+And you can pass css events and much more:
+
+```tsx
+<X.div bg={{ _: 'blue', hover: 'red' }}>something here</X.div>
+```
+
+See the docs for this feature [here](https://xstyled.dev/docs/hover-focus-other-states/).
+
+This example running:
+
+<Canvas>
+  <X.div bg={{ _: 'blue', hover: 'red' }}>something here</X.div>
+</Canvas>

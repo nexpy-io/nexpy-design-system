@@ -1,0 +1,100 @@
+import { Meta } from '@storybook/addon-docs'
+
+import { Canvas } from 'core/storybookWrappers'
+
+import { Box } from 'components/atoms/Box'
+
+<Meta title='Docs/Styling' />
+
+# Advanced props
+
+You can pass css events to all design system components like:
+
+```tsx
+<Box p='2rem' bg={{ _: 'blue', hover: 'red' }} color={{ _: 'white', hover: 'black' }}>
+  something here
+</Box>
+```
+
+This example running (try hover):
+
+<Canvas>
+  <Box p='2rem' bg={{ _: 'blue', hover: 'red' }} color={{ _: 'white', hover: 'black' }}>
+    something here
+  </Box>
+</Canvas>
+
+## Using reponsive states
+
+States and breakpoints can be seemlessly mixed, every screens defined in theme are a `@media (min-width: ...)` state.
+
+```jsx preview color=fuchsia
+<>
+  <template preview>
+    <x.div textAlign='center'>
+      <x.button
+        type='button'
+        py={2}
+        px={4}
+        bg={{
+          _: { _: 'indigo-500', hover: 'indigo-700' },
+          md: { _: 'fuchsia-500', hover: 'fuchsia-700' },
+        }}
+        color='white'
+        fontWeight='semibold'
+        borderRadius='lg'
+        boxShadow='md'
+        outline={{ focus: 'none ' }}
+        tabindex='-1'
+      >
+        Cameleon button
+      </x.button>
+    </x.div>
+  </template>
+  <x.button
+    bg={{
+      _: { _: 'indigo-500', hover: 'indigo-700' },
+      md: { _: 'fuchsia-500', hover: 'fuchsia-700' },
+    }}
+  >
+    Cameleon button
+  </x.button>
+</>
+```
+
+## Available states
+
+Default theme includes a set of useful states.
+
+| State Prefix   | CSS Scope                                        |
+| -------------- | ------------------------------------------------ |
+| `motionSafe`   | `@media (prefers-reduced-motion: no-preference)` |
+| `motionReduce` | `@media (prefers-reduced-motion: reduce)`        |
+| `first`        | `&:first-child`                                  |
+| `last`         | `&:last-child`                                   |
+| `odd`          | `&:odd`                                          |
+| `even`         | `&:even`                                         |
+| `visited`      | `&:visited`                                      |
+| `checked`      | `&:checked`                                      |
+| `hover`        | `&:hover`                                        |
+| `focus`        | `&:focus`                                        |
+| `focusVisible` | `&:focus-visible`                                |
+| `focusWithin`  | `&:focus-within`                                 |
+| `active`       | `&:active`                                       |
+| `disabled`     | `&:disabled, &[aria-disabled=true]`              |
+| `placeholder`  | `&::placeholder`                                 |
+
+## Customizing states
+
+You can completely customize states in your theme:
+
+```ts
+export const theme = {
+  states: {
+    firstLetter: '&::first-letter',
+    dark: '.xstyled-color-mode-dark &&',
+  },
+}
+```
+
+See the full docs for this feature [here](https://xstyled.dev/docs/hover-focus-other-states/).
