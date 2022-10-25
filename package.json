@@ -54,8 +54,8 @@
     "@storybook/theming": "^6.5.12",
     "@types/lodash": "^4.14.186",
     "@types/node": "18.7.23",
-    "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.13",
+    "@types/react": "^18.0.23",
+    "@types/react-dom": "^18.0.7",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
@@ -83,8 +83,8 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-textarea-autosize": "^8.3.4",
     "rimraf": "^3.0.2",
     "rollup": "^2.69.0",
@@ -96,8 +96,8 @@
     "typescript": "4.5.5"
   },
   "peerDependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "peerDependenciesMeta": {
     "react-dom": {
@@ -108,13 +108,17 @@
     "@babel/runtime": "^7.17.2",
     "@nexpy/react-easy-context-api": "^1.0.2",
     "@xstyled/styled-components": "^3.7.0",
-    "framer-motion": "^6.3.16",
+    "framer-motion": "^7.6.1",
     "lodash": "^4.17.21",
-    "react-hook-form": "^7.37.0",
-    "react-select": "^5.5.0",
+    "react-hook-form": "^7.38.0",
+    "react-select": "^5.5.6",
     "scheduler": "^0.23.0",
     "slugify": "^1.6.5",
     "styled-components": "^5.3.6"
+  },
+  "resolutions": {
+    "@types/react": "^18.0.23",
+    "@types/react-dom": "^18.0.7"
   },
   "config": {
     "commitizen": {
