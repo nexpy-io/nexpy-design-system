@@ -48,8 +48,12 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
     name,
     required,
     placeholder,
+    id,
     ...rest
   } = props
+
+  const resolvedId = id || slugify(`select-container-${label}`)
+  const resolvedInputId = `select-input-${id}` || slugify(`select-input-${label}`)
 
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [options, setOptions] = useState<AsyncSelectOption[]>(defaultOptions || [])
@@ -108,7 +112,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
         mb='0.4rem'
         isFocused={isFocused}
         error={error}
-        htmlFor={`field-${name}`}
+        htmlFor={resolvedId}
       >
         {label}
       </FieldLabel>
@@ -120,7 +124,8 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
             if (isMulti) {
               return (
                 <ReactSelectAsync<AsyncSelectOption, true>
-                  id={slugify(`select-${label}`)}
+                  id={resolvedId}
+                  inputId={resolvedInputId}
                   styles={customSelectStyles}
                   loadOptions={loadOptionsHandler}
                   placeholder={placeholder === undefined ? label : placeholder}
@@ -152,7 +157,8 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
 
             return (
               <ReactSelectAsync
-                id={slugify(`select-${label}`)}
+                id={resolvedId}
+                inputId={resolvedInputId}
                 styles={customSelectStyles}
                 loadOptions={loadOptionsHandler}
                 placeholder={placeholder === undefined ? label : placeholder}

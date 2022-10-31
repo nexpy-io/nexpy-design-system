@@ -44,8 +44,12 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
     name,
     required,
     placeholder,
+    id,
     ...rest
   } = props
+
+  const resolvedId = id || slugify(`select-container-${label}`)
+  const resolvedInputId = `select-input-${id}` || slugify(`select-input-${label}`)
 
   const [isFocused, setIsFocused] = useState<boolean>(false)
 
@@ -81,7 +85,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
         mb='0.4rem'
         isFocused={isFocused}
         error={error}
-        htmlFor={`field-${name}`}
+        htmlFor={resolvedId}
       >
         {label}
       </FieldLabel>
@@ -93,7 +97,8 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
             if (isMulti) {
               return (
                 <ReactSelect<SelectOption, true>
-                  id={slugify(`select-${label}`)}
+                  id={resolvedId}
+                  inputId={resolvedInputId}
                   styles={customSelectStyles}
                   options={options}
                   placeholder={placeholder === undefined ? label : placeholder}
@@ -111,7 +116,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
                   isClearable={isClearable}
                   aria-label={label}
                   isDisabled={disabled}
-                  data-cy={slugify(`select-${label}`)}
+                  data-cy={resolvedId}
                   isSearchable={Boolean(enableSearch)}
                   noOptionsMessage={() => enableSearch?.noOptionsMessage}
                 />
@@ -120,7 +125,8 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
 
             return (
               <ReactSelect
-                id={slugify(`select-${label}`)}
+                id={resolvedId}
+                inputId={resolvedInputId}
                 styles={customSelectStyles}
                 options={options}
                 placeholder={placeholder === undefined ? label : placeholder}
@@ -137,7 +143,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
                 isClearable={isClearable}
                 aria-label={label}
                 isDisabled={disabled}
-                data-cy={slugify(`select-${label}`)}
+                data-cy={resolvedId}
                 isSearchable={Boolean(enableSearch)}
                 noOptionsMessage={() => enableSearch?.noOptionsMessage}
               />
