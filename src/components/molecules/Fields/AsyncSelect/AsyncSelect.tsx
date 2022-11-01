@@ -112,7 +112,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
         mb='0.4rem'
         isFocused={isFocused}
         error={error}
-        htmlFor={resolvedId}
+        htmlFor={resolvedInputId}
       >
         {label}
       </FieldLabel>
@@ -125,6 +125,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
               return (
                 <ReactSelectAsync<AsyncSelectOption, true>
                   id={resolvedId}
+                  instanceId={resolvedId}
                   inputId={resolvedInputId}
                   styles={customSelectStyles}
                   loadOptions={loadOptionsHandler}
@@ -158,6 +159,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
             return (
               <ReactSelectAsync
                 id={resolvedId}
+                instanceId={resolvedId}
                 inputId={resolvedInputId}
                 styles={customSelectStyles}
                 loadOptions={loadOptionsHandler}

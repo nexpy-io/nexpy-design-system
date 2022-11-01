@@ -85,7 +85,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
         mb='0.4rem'
         isFocused={isFocused}
         error={error}
-        htmlFor={resolvedId}
+        htmlFor={resolvedInputId}
       >
         {label}
       </FieldLabel>
@@ -98,6 +98,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
               return (
                 <ReactSelect<SelectOption, true>
                   id={resolvedId}
+                  instanceId={resolvedId}
                   inputId={resolvedInputId}
                   styles={customSelectStyles}
                   options={options}
@@ -126,6 +127,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
             return (
               <ReactSelect
                 id={resolvedId}
+                instanceId={resolvedId}
                 inputId={resolvedInputId}
                 styles={customSelectStyles}
                 options={options}
