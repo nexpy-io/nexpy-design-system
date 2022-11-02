@@ -156,6 +156,14 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
               alt={alt}
               autoFocus={autoFocus}
               autoComplete={browserAutoComplete}
+              onWheel={e => {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const target = e?.target as any
+
+                if (typeof target?.blur === 'function') {
+                  target.blur()
+                }
+              }}
             />
           </>
         ) : (
@@ -181,6 +189,14 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
             alt={alt}
             autoFocus={autoFocus}
             autoComplete={browserAutoComplete}
+            onWheel={e => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const target = e?.target as any
+
+              if (typeof target?.blur === 'function') {
+                target.blur()
+              }
+            }}
           />
         )}
         {type !== 'file' && (sufixElement || null)}
