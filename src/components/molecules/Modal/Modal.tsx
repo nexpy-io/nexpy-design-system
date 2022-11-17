@@ -15,7 +15,7 @@ import {
   ModalPortalDedupleContext,
   ModalPortalDedupleProvider,
 } from 'contexts/ModalPortalDedupleContext'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 import { FlexProps } from 'components/atoms'
 import { Portal } from 'components/hocs/Portal'
@@ -38,18 +38,6 @@ export type ModalProps = {
   backgroundProps?: FlexProps
   disableUseOnClickOutside?: boolean
 } & Omit<CardProps, 'children'>
-
-const motionBackgroundVariants = {
-  hidden: {
-    opacity: 0,
-    transitionEnd: {
-      display: 'none',
-    },
-  },
-  visible: {
-    opacity: 1,
-  },
-}
 
 const ModalBase = ({
   render,
@@ -87,25 +75,24 @@ const ModalBase = ({
 
       <ModalPortalDedupleProvider>
         <Portal enabled={!hasParentModal}>
-          <motion.div
-            variants={motionBackgroundVariants}
-            initial='hidden'
-            animate={modalIsOpen ? 'visible' : 'hidden'}
-            transition={{
-              default: { duration: 0.3 },
-            }}
-            style={{
-              ...(modalIsOpen && {
-                display: 'block',
-              }),
-            }}
-          >
-            <ModalBackground variant='center' {...backgroundProps}>
-              <ModalCard ref={modalMainRef} {...props}>
-                {render({ isOpen: modalIsOpen, setIsOpen, excludeRef })}
-              </ModalCard>
-            </ModalBackground>
-          </motion.div>
+          <AnimatePresence>
+            {modalIsOpen ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  default: { duration: 0.3 },
+                }}
+              >
+                <ModalBackground variant='center' {...backgroundProps}>
+                  <ModalCard ref={modalMainRef} {...props}>
+                    {render({ isOpen: modalIsOpen, setIsOpen, excludeRef })}
+                  </ModalCard>
+                </ModalBackground>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
         </Portal>
       </ModalPortalDedupleProvider>
     </>
