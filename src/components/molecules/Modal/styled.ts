@@ -4,7 +4,7 @@ import { Flex } from 'components/atoms/Flex'
 import { Card } from 'components/molecules/Card'
 
 export const ModalBackground = styled(Flex)`
-  position: absolute;
+  position: fixed;
 
   top: 0;
   bottom: 0;
