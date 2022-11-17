@@ -48,7 +48,6 @@ const motionBackgroundVariants = {
   },
   visible: {
     opacity: 1,
-    display: 'block',
   },
 }
 
@@ -94,6 +93,11 @@ const ModalBase = ({
             animate={modalIsOpen ? 'visible' : 'hidden'}
             transition={{
               default: { duration: 0.3 },
+            }}
+            style={{
+              ...(modalIsOpen && {
+                display: 'block',
+              }),
             }}
           >
             <ModalBackground variant='center' {...backgroundProps}>
