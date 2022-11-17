@@ -36,6 +36,7 @@ export type ModalProps = {
   children?: (params: ModalFunctionNotation) => ReactNode
   externalIsOpen?: boolean
   backgroundProps?: FlexProps
+  motionContainerProps?: Record<string, unknown>
   disableUseOnClickOutside?: boolean
 } & Omit<CardProps, 'children'>
 
@@ -44,6 +45,7 @@ const ModalBase = ({
   externalIsOpen,
   children,
   backgroundProps,
+  motionContainerProps,
   disableUseOnClickOutside,
   ...props
 }: ModalProps) => {
@@ -84,6 +86,7 @@ const ModalBase = ({
                 transition={{
                   default: { duration: 0.3 },
                 }}
+                {...motionContainerProps}
               >
                 <ModalBackground variant='center' {...backgroundProps}>
                   <ModalCard ref={modalMainRef} {...props}>
@@ -103,6 +106,7 @@ ModalBase.defaultProps = {
   children: undefined,
   externalIsOpen: undefined,
   backgroundProps: undefined,
+  motionContainerProps: undefined,
   disableUseOnClickOutside: false,
 }
 
