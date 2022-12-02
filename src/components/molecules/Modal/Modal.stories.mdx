@@ -27,6 +27,9 @@ type ModalFunctionNotation = {
 
   A function that rentuns the components to render inside Modal.
 
+- onClickOutside?: () => void
+  A function called when user click outside of the modal.
+
 - externalIsOpen?: boolean
 
   A boolean that indicates if the Modal is open or not. When used, internal state is ignored, and setIsOpen does nothing.

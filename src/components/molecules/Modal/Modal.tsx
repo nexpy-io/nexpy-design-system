@@ -33,6 +33,7 @@ type ModalFunctionNotation = {
 
 export type ModalProps = {
   render: (params: ModalFunctionNotation) => ReactNode
+  onClickOutside?: () => void
   children?: (params: ModalFunctionNotation) => ReactNode
   externalIsOpen?: boolean
   backgroundProps?: FlexProps
@@ -42,6 +43,7 @@ export type ModalProps = {
 
 const ModalBase = ({
   render,
+  onClickOutside,
   externalIsOpen,
   children,
   backgroundProps,
@@ -62,12 +64,16 @@ const ModalBase = ({
   )
 
   const clickOutsideHandler = useCallback(() => {
+    if (onClickOutside) {
+      onClickOutside()
+    }
+
     if (disableUseOnClickOutside) {
       return
     }
 
     setIsOpen(false)
-  }, [disableUseOnClickOutside])
+  }, [disableUseOnClickOutside, onClickOutside])
 
   useOnClickOutside(modalMainRef, clickOutsideHandler, excludeRef)
 
@@ -104,6 +110,7 @@ const ModalBase = ({
 
 ModalBase.defaultProps = {
   children: undefined,
+  onClickOutside: undefined,
   externalIsOpen: undefined,
   backgroundProps: undefined,
   motionContainerProps: {
