@@ -3105,11 +3105,6 @@
   resolved "https://registry.yarnpkg.com/@types/html-minifier-terser/-/html-minifier-terser-5.1.2.tgz#693b316ad323ea97eed6b38ed1a3cc02b1672b57"
   integrity sha512-h4lTMgMJctJybDp8CQrxTUiiYmedihHWkjnF/8Pxseu2S6Nlfcy8kwboQ8yejh456rP2yWoEVm1sS/FVsfM48w==
 
-"@types/inputmask@^5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@types/inputmask/-/inputmask-5.0.3.tgz#f23492d5b5862c5737ae24bfe9fb8b2acf77b453"
-  integrity sha512-9aTXacRhf9D3+porVydLR28ll8/y3TQIrXEXv7ZWY0c3Lzl/1r4nHoaesZeh2Fd+UIefpWZrg2tkSnDn/dKUsw==
-
 "@types/is-function@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/is-function/-/is-function-1.0.1.tgz#2d024eace950c836d9e3335a66b97960ae41d022"
@@ -3143,18 +3138,6 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
-
-"@types/lodash.flowright@^3.5.7":
-  version "3.5.7"
-  resolved "https://registry.yarnpkg.com/@types/lodash.flowright/-/lodash.flowright-3.5.7.tgz#154144dab8ed6561e7317ea158a4f7556d24858b"
-  integrity sha512-stlmNXfnJr1yI7+xwMkU1IQxWS59JMw83MejH13y0STHv0iVBzOrw6KcxSAZQjSkAtoRGk3T0aWAt67vrF7V0Q==
-  dependencies:
-    "@types/lodash" "*"
-
-"@types/lodash@*":
-  version "4.14.191"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.191.tgz#09511e7f7cba275acd8b419ddac8da9a6a79e2fa"
-  integrity sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==
 
 "@types/lodash@^4.14.167", "@types/lodash@^4.14.186":
   version "4.14.186"
@@ -8079,11 +8062,6 @@ inline-style-parser@0.1.1:
   resolved "https://registry.yarnpkg.com/inline-style-parser/-/inline-style-parser-0.1.1.tgz#ec8a3b429274e9c0a1f1c4ffa9453a7fef72cea1"
   integrity sha512-7NXolsK4CAS5+xvdj5OMMbI962hU/wvwoxk+LWR9Ek9bVtyuuYScDN6eS0rUm6TxApFpw7CX1o4uJzcd4AyD3Q==
 
-inputmask@^5.0.7:
-  version "5.0.7"
-  resolved "https://registry.yarnpkg.com/inputmask/-/inputmask-5.0.7.tgz#b04d5d4e1c85018893c3c8edb1a9f074b051007f"
-  integrity sha512-rUxbRDS25KEib+c/Ow+K01oprU/+EK9t9SOPC8ov94/ftULGDqj1zOgRU/Hko6uzoKRMdwCfuhAafJ/Wk2wffQ==
-
 inquirer@6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-6.5.2.tgz#ad50942375d036d327ff528c08bd5fab089928ca"
@@ -9042,11 +9020,6 @@ lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
-
-lodash.flowright@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.flowright/-/lodash.flowright-3.5.0.tgz#2b5fff399716d7e7dc5724fe9349f67065184d67"
-  integrity sha512-YxTYuodkvyINbDInmFcGGvkQwoAuoGUYosqstRTr5eq63GQt7WQ2xFU0wG1UfdbKYPwevd3zWDd6ybEE2g6qvA==
 
 lodash.map@^4.5.1:
   version "4.6.0"

@@ -1,10 +1,10 @@
-import styled from '@xstyled/styled-components'
+import styled, { x } from '@xstyled/styled-components'
 
 import { System } from 'types'
 
 export type InputProps = System<'input'>
 
-const Input = styled.inputBox<InputProps>`
+const Input = styled(x.input)<InputProps>`
   height: 4.6rem;
   outline: none;
   border: none;
