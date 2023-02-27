@@ -1,5 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { forwardRef, useState, ReactNode, FocusEventHandler } from 'react'
+import React, {
+  forwardRef,
+  useState,
+  useCallback,
+  ReactNode,
+  FocusEventHandler,
+  useMemo,
+  MutableRefObject,
+} from 'react'
+import { UseFormRegisterReturn } from 'react-hook-form'
+
+import Inputmask from 'inputmask'
+import flowright from 'lodash.flowright'
 
 import { Input, InputProps, Box, Label, Span } from 'components/atoms'
 
@@ -15,6 +27,8 @@ export type FieldProps = {
     accept?: string
     inputMessage: string
   }
+  mask?: Inputmask.Options['mask']
+  maskOptions?: Inputmask.Options
   type?:
     | 'date'
     | 'datetime-local'
@@ -30,7 +44,7 @@ export type FieldProps = {
     | 'file'
 } & Omit<InputProps, 'autoComplete'>
 
-const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
+const Field = forwardRef<HTMLInputElement, FieldProps>((props, forwardedRef) => {
   const {
     label,
     error,
@@ -38,6 +52,8 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
     prefixElement,
     fileTypeOptions,
     sufixElement,
+    mask,
+    maskOptions,
     type,
     onFocus,
     onBlur,
@@ -61,21 +77,80 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [currentFileName, setCurrentFileName] = useState<string>('')
 
-  const handleFocus: FocusEventHandler<HTMLInputElement> = event => {
-    if (onFocus) {
-      onFocus(event)
+  const ref = useMemo(() => {
+    if (!mask) {
+      return forwardedRef
     }
 
-    setIsFocused(true)
-  }
+    const currentMutableRef = forwardedRef as
+      | MutableRefObject<HTMLInputElement | null>
+      | undefined
 
-  const handleBlur: FocusEventHandler<HTMLInputElement> = event => {
-    if (onBlur) {
-      onBlur(event)
+    if (currentMutableRef?.current !== undefined) {
+      const maskInput = Inputmask({
+        mask,
+        jitMasking: true,
+        ...maskOptions,
+      })
+
+      return (instance: HTMLInputElement) => {
+        maskInput.mask(instance)
+
+        currentMutableRef.current = instance
+      }
     }
 
-    setIsFocused(false)
-  }
+    if (forwardedRef) {
+      const maskInput = Inputmask({
+        mask,
+        jitMasking: true,
+        ...maskOptions,
+      })
+
+      const newRef = flowright(
+        forwardedRef as UseFormRegisterReturn['ref'],
+        (_ref: HTMLInputElement | null) => {
+          if (_ref) maskInput.mask(_ref)
+
+          return _ref
+        }
+      )
+
+      return newRef
+    }
+
+    const maskInput = Inputmask({
+      mask,
+      jitMasking: true,
+      ...maskOptions,
+    })
+
+    return (instance: HTMLInputElement) => {
+      maskInput.mask(instance)
+    }
+  }, [forwardedRef, mask, maskOptions])
+
+  const handleFocus: FocusEventHandler<HTMLInputElement> = useCallback(
+    event => {
+      if (onFocus) {
+        onFocus(event)
+      }
+
+      setIsFocused(true)
+    },
+    [onFocus]
+  )
+
+  const handleBlur: FocusEventHandler<HTMLInputElement> = useCallback(
+    event => {
+      if (onBlur) {
+        onBlur(event)
+      }
+
+      setIsFocused(false)
+    },
+    [onBlur]
+  )
 
   return (
     <Box m='0.8rem 0' display='inline-block' w='fit-content' {...rest}>
@@ -216,6 +291,8 @@ Field.defaultProps = {
   sufixElement: undefined,
   browserAutoComplete: undefined,
   fileTypeOptions: undefined,
+  mask: undefined,
+  maskOptions: undefined,
   type: 'text',
 }
 

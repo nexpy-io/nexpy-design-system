@@ -37,6 +37,14 @@ This is the `Input` component with xstyled super powers and another elements ins
   inputMessage: string
   }
 
+- `mask`?: Inputmask.Options['mask']
+
+  See Inputmask lib docs for more info.
+
+- `maskOptions`?: Inputmask.Options
+
+  See Inputmask lib docs for more info.
+
 - `type`?: 'date'
   | 'datetime-local'
   | 'month'
@@ -54,6 +62,16 @@ This is the `Input` component with xstyled super powers and another elements ins
 
 <Canvas>
   <Field name='cat-name' type='url' label='Cat Name' w='400px' />
+</Canvas>
+
+<Canvas>
+  <Field
+    name='phone-number-mask'
+    mask='(99) 99999-9999'
+    type='tel'
+    label='Phone'
+    w='400px'
+  />
 </Canvas>
 
 <Canvas>
