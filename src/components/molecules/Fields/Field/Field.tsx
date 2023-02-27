@@ -127,6 +127,13 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
               {type === 'file' && (sufixElement || null)}
             </Label>
             <Input
+              height='4.6rem'
+              border='none'
+              font-size='default'
+              font-weight='normal'
+              outline={{ _: 'none', '&:focus': 'none' }}
+              fontSize={{ '&::-webkit-input-placeholder ': 'default' }}
+              fontWeight={{ '&::-webkit-input-placeholder ': 'normal' }}
               id={`field-${name}`}
               display='none'
               accept={fileTypeOptions?.accept}
@@ -168,6 +175,13 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
           </>
         ) : (
           <Input
+            height='4.6rem'
+            border='none'
+            font-size='default'
+            font-weight='normal'
+            outline={{ _: 'none', '&:focus': 'none' }}
+            fontSize={{ '&::-webkit-input-placeholder ': 'default' }}
+            fontWeight={{ '&::-webkit-input-placeholder ': 'normal' }}
             id={`field-${name}`}
             type={type}
             onFocus={handleFocus}
