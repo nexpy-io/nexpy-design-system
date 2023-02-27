@@ -46,3 +46,6 @@ export const withMask =
 
     return input
   }
+
+export type WithMaskPattern = Inputmask.Options['mask']
+export type WithMaskOptions = Inputmask.Options
