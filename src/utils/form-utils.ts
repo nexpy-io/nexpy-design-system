@@ -1,9 +1,10 @@
 import type { UseFormRegisterReturn } from 'react-hook-form'
 
-import Inputmask from 'inputmask'
+import type Inputmask from 'inputmask'
 import flowright from 'lodash.flowright'
 
 export const withHookFormMask = (
+  InputmaskFunction: typeof Inputmask,
   registerReturn: UseFormRegisterReturn,
   mask: Inputmask.Options['mask'],
   options?: Inputmask.Options
@@ -13,7 +14,7 @@ export const withHookFormMask = (
   if (registerReturn) {
     const { ref } = registerReturn
 
-    const maskInput = Inputmask({
+    const maskInput = InputmaskFunction({
       mask,
       jitMasking: true,
       ...options,
@@ -32,10 +33,14 @@ export const withHookFormMask = (
 }
 
 export const withMask =
-  (mask: Inputmask.Options['mask'], options?: Inputmask.Options) =>
+  (
+    InputmaskFunction: typeof Inputmask,
+    mask: Inputmask.Options['mask'],
+    options?: Inputmask.Options
+  ) =>
   (input: HTMLElement | HTMLInputElement | null) => {
     //
-    const maskInput = Inputmask({
+    const maskInput = InputmaskFunction({
       mask,
       ...options,
     })
