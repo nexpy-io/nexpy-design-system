@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs'
+
+<Meta title='Docs/Exports/Form Utils' />
+
+# Form Utils
+
+<br />
+
+## withHookFormMask
+
+Create a mask for React Hook Form based fields.
+
+Using the function with React Hook Form:
+
+```tsx
+<Field {...withHookFormMask(register('name', ['(99) 9999 9999', '(99) 9 9999 9999']))} />
+```
+
+<br />
+
+## withMask
+
+Create a mask for generic inputs.
+
+Using the function without React Hook Form:
+
+```tsx
+<input type='text' ref={withMask('9999-9999')} />
+```
