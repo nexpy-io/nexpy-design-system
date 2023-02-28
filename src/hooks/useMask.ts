@@ -1,31 +1,46 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
-import { useCallback, useMemo } from 'react'
+import { MutableRefObject, useCallback, useRef } from 'react'
 
 import VMasker from 'vanilla-masker'
 
-export const useMask = (customPattern: string) => {
-  const pattern = useMemo(() => customPattern, [customPattern])
+export const useMask = <
+  CurrentElement extends HTMLInputElement | null = HTMLInputElement | null
+>() => {
+  const maskerRef = useRef<ReturnType<typeof VMasker> | null>(null)
+
+  const assignInstance = useCallback((instance: CurrentElement) => {
+    if (instance) {
+      maskerRef.current = VMasker(instance)
+    }
+  }, [])
 
   const ref = useCallback(
-    (instance: any) => {
-      VMasker(instance).maskPattern(pattern)
+    (instance: CurrentElement) => {
+      assignInstance(instance)
     },
-    [pattern]
+    [assignInstance]
   )
 
   const refWrapper = useCallback(
-    (currentRef: any) => {
+    (
+      currentRef:
+        | ((instance: CurrentElement) => void)
+        | MutableRefObject<CurrentElement>
+        | undefined
+    ) => {
       if (currentRef && typeof currentRef === 'object') {
-        return (instance: any) => {
+        return (instance: CurrentElement) => {
+          assignInstance(instance)
+
           currentRef.current = instance
         }
       }
 
       if (currentRef && typeof currentRef === 'function') {
-        return (instance: any) => {
+        return (instance: CurrentElement) => {
           if (instance) {
-            VMasker(instance).maskPattern(pattern)
+            assignInstance(instance)
 
             currentRef(instance)
           }
@@ -34,21 +49,24 @@ export const useMask = (customPattern: string) => {
 
       return undefined
     },
-    [pattern]
+    [assignInstance]
   )
 
   const refWrapperFromObject = useCallback(
     (object: any) => {
-      const { ref: currentRef, ...rest } = object
+      if (typeof object === 'object') {
+        const { ref: currentRef, ...rest } = object
 
-      return { ref: refWrapper(ref), ...rest }
+        return { ref: refWrapper(currentRef), ...rest }
+      }
+
+      return object
     },
-    [ref, refWrapper]
+    [refWrapper]
   )
 
   return {
-    ref,
-    refWrapper,
-    refWrapperFromObject,
+    masker: maskerRef.current,
+    connect: { ref, refWrapper, refWrapperFromObject },
   }
 }
