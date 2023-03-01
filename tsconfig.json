@@ -1,5 +1,5 @@
 {
-  "include": ["src"],
+  "include": ["src", "**/*.ts", "**/*.tsx", "**/*.d.ts"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "resolveJsonModule": true,

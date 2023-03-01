@@ -6,7 +6,7 @@
     "react",
     "typescript"
   ],
-  "version": "2.1.18",
+  "version": "2.1.19",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
@@ -57,7 +57,6 @@
     "@types/react": "^18.0.23",
     "@types/react-dom": "^18.0.7",
     "@types/styled-components": "^5.1.26",
-    "@types/vanilla-masker": "^1.2.1",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "babel-loader": "^8.2.5",
