@@ -100,7 +100,10 @@ const colorModeVariant = getVariant<ButtonProps, ColorModeVariants>({
           `
 
         default:
-          return css``
+          return css`
+            background-color: systemPrimary;
+            color: systemWhite;
+          `
       }
     },
     danger: ({ variant }) => {
@@ -124,7 +127,10 @@ const colorModeVariant = getVariant<ButtonProps, ColorModeVariants>({
           `
 
         default:
-          return css``
+          return css`
+            background-color: systemDanger;
+            color: systemWhite;
+          `
       }
     },
     warning: ({ variant }) => {
@@ -148,7 +154,10 @@ const colorModeVariant = getVariant<ButtonProps, ColorModeVariants>({
           `
 
         default:
-          return css``
+          return css`
+            background-color: systemWarning;
+            color: systemWhite;
+          `
       }
     },
     safe: ({ variant }) => {
@@ -172,7 +181,10 @@ const colorModeVariant = getVariant<ButtonProps, ColorModeVariants>({
           `
 
         default:
-          return css``
+          return css`
+            background-color: systemSafe;
+            color: systemWhite;
+          `
       }
     },
   },
@@ -209,11 +221,11 @@ const disabledStyleResolver = ({ disabled, variant }: ButtonProps) => {
       case 'ghost':
         return css`
           background-color: transparent;
+          box-shadow: none;
 
           &:hover,
           &:active {
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 7px 8px -4px,
-              rgba(0, 0, 0, 0.02) 0px 12px 17px 2px;
+            box-shadow: none;
           }
         `
 
@@ -273,6 +285,12 @@ const Button = styled.buttonBox<ButtonProps>`
     transform: scale(0.98);
     box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px,
       rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
+  }
+
+  &:focus {
+    outline-width: 1px !important;
+    outline-style: solid !important;
+    outline-color: systemPrimary !important;
   }
 
   ${sizeVariant}
