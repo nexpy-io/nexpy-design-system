@@ -32,7 +32,7 @@ type ModalFunctionNotation = {
 }
 
 export type ModalProps = {
-  animation?: {
+  customAnimation?: {
     initial?: AnimationProps['initial']
     transition?: AnimationProps['transition']
     in?: AnimationProps['animate']
@@ -48,7 +48,7 @@ export type ModalProps = {
 } & Omit<CardProps, 'children'>
 
 const ModalBase = ({
-  animation,
+  customAnimation,
   render,
   onClickOutside,
   externalIsOpen,
@@ -94,12 +94,14 @@ const ModalBase = ({
             {modalIsOpen ? (
               <motion.div
                 {...motionContainerProps}
-                initial={animation?.initial ? animation.initial : { opacity: 0 }}
-                animate={animation?.in ? animation.in : { opacity: 1 }}
-                exit={animation?.out ? animation.out : { opacity: 0 }}
+                initial={
+                  customAnimation?.initial ? customAnimation.initial : { opacity: 0 }
+                }
+                animate={customAnimation?.in ? customAnimation.in : { opacity: 1 }}
+                exit={customAnimation?.out ? customAnimation.out : { opacity: 0 }}
                 transition={
-                  animation?.transition
-                    ? animation.transition
+                  customAnimation?.transition
+                    ? customAnimation.transition
                     : {
                         default: { duration: 0.3 },
                       }
@@ -121,7 +123,7 @@ const ModalBase = ({
 
 ModalBase.defaultProps = {
   children: undefined,
-  animation: undefined,
+  customAnimation: undefined,
   onClickOutside: undefined,
   externalIsOpen: undefined,
   backgroundProps: undefined,
