@@ -15,7 +15,7 @@ import {
   ModalPortalDedupleContext,
   ModalPortalDedupleProvider,
 } from 'contexts/ModalPortalDedupleContext'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, AnimationProps } from 'framer-motion'
 
 import { FlexProps } from 'components/atoms'
 import { Portal } from 'components/hocs/Portal'
@@ -32,6 +32,12 @@ type ModalFunctionNotation = {
 }
 
 export type ModalProps = {
+  animation?: {
+    initial?: AnimationProps['initial']
+    transition?: AnimationProps['transition']
+    in?: AnimationProps['animate']
+    out?: AnimationProps['exit']
+  }
   render: (params: ModalFunctionNotation) => ReactNode
   onClickOutside?: () => void
   children?: (params: ModalFunctionNotation) => ReactNode
@@ -42,6 +48,7 @@ export type ModalProps = {
 } & Omit<CardProps, 'children'>
 
 const ModalBase = ({
+  animation,
   render,
   onClickOutside,
   externalIsOpen,
@@ -86,13 +93,17 @@ const ModalBase = ({
           <AnimatePresence>
             {modalIsOpen ? (
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{
-                  default: { duration: 0.3 },
-                }}
                 {...motionContainerProps}
+                initial={animation?.initial ? animation.initial : { opacity: 0 }}
+                animate={animation?.in ? animation.in : { opacity: 1 }}
+                exit={animation?.out ? animation.out : { opacity: 0 }}
+                transition={
+                  animation?.transition
+                    ? animation.transition
+                    : {
+                        default: { duration: 0.3 },
+                      }
+                }
               >
                 <ModalBackground variant='center' {...backgroundProps}>
                   <ModalCard ref={modalMainRef} {...props}>
@@ -110,6 +121,7 @@ const ModalBase = ({
 
 ModalBase.defaultProps = {
   children: undefined,
+  animation: undefined,
   onClickOutside: undefined,
   externalIsOpen: undefined,
   backgroundProps: undefined,
