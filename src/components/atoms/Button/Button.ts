@@ -281,16 +281,20 @@ const Button = styled.buttonBox<ButtonProps>`
     box-shadow: rgba(0, 0, 0, 0.2) 0px 7px 8px -4px, rgba(0, 0, 0, 0.08) 0px 12px 17px 2px;
   }
 
-  &:active {
-    transform: scale(0.98);
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px,
-      rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
-  }
-
   &:focus {
     outline-width: 1px !important;
     outline-style: solid !important;
     outline-color: systemPrimary !important;
+  }
+
+  &:active {
+    outline-width: none !important;
+    outline-style: none !important;
+    outline-color: none !important;
+
+    transform: scale(0.98);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px,
+      rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
   }
 
   ${sizeVariant}
