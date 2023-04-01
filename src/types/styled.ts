@@ -13,3 +13,5 @@ export type PropsWithAs<P> = P & {
   as?: ElementKey | undefined
   forwardedAs?: ElementKey | undefined
 }
+
+export type StyleModes = 'minimalist' | 'default'

@@ -1,9 +1,20 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { forwardRef, useState, ReactNode, FocusEventHandler } from 'react'
+import React, { forwardRef, useState, ReactNode, FocusEventHandler, useMemo } from 'react'
 
-import { Input, InputProps, Box, Label, Span } from 'components/atoms'
+import { StyleModeContext } from 'contexts/StyleModeContext'
 
-import { InputContainer, FieldLabel, ErrorLabel, FileInputSpanButton } from './styled'
+import { Input, InputProps, Label, Span } from 'components/atoms'
+
+import { StyleModes } from 'types'
+
+import {
+  InputContainer,
+  FieldLabel,
+  ErrorLabel,
+  FileInputSpanButton,
+  MinimalistBorderHelper,
+  RootContainer,
+} from './styled'
 
 export type FieldProps = {
   label: string
@@ -15,6 +26,7 @@ export type FieldProps = {
     accept?: string
     inputMessage: string
   }
+  styleMode?: StyleModes
   type?:
     | 'date'
     | 'datetime-local'
@@ -55,8 +67,15 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
     alt,
     autoFocus,
     browserAutoComplete,
+    styleMode: localStyleMode,
     ...rest
   } = props
+
+  const globalStyleMode = StyleModeContext.useSelector(state => state.defaultStyleMode)
+  const styleMode = useMemo(
+    () => localStyleMode || globalStyleMode,
+    [globalStyleMode, localStyleMode]
+  )
 
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [currentFileName, setCurrentFileName] = useState<string>('')
@@ -78,14 +97,24 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
   }
 
   return (
-    <Box m='0.8rem 0' display='inline-block' w='fit-content' {...rest}>
+    <RootContainer
+      m='0.8rem 0'
+      display='inline-block'
+      w='fit-content'
+      {...rest}
+      isFocused={isFocused}
+      error={error}
+      styleMode={styleMode}
+      disabled={disabled}
+    >
       <FieldLabel
+        mb='0.4rem'
         as='label'
         variant='caption'
-        mb='0.4rem'
         isFocused={isFocused}
         error={error}
         htmlFor={`field-${name}`}
+        styleMode={styleMode}
       >
         {label}
       </FieldLabel>
@@ -93,6 +122,7 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
         error={error}
         isFocused={isFocused}
         disabled={disabled}
+        styleMode={styleMode}
         {...(type === 'file' && { pr: '0.8rem' })}
       >
         {type !== 'file' && (prefixElement || null)}
@@ -111,6 +141,7 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
                 error={error}
                 isFocused={isFocused}
                 disabled={disabled}
+                styleMode={styleMode}
               >
                 {fileTypeOptions?.inputMessage || ''}
               </FileInputSpanButton>
@@ -201,10 +232,16 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
         )}
         {type !== 'file' && (sufixElement || null)}
       </InputContainer>
-      <ErrorLabel variant='caption' mt='0.2rem' error={error}>
+      <MinimalistBorderHelper
+        error={error}
+        isFocused={isFocused}
+        disabled={disabled}
+        styleMode={styleMode}
+      />
+      <ErrorLabel variant='caption' mt='0.2rem' error={error} styleMode={styleMode}>
         {error !== 'generic_error' ? error : ''}
       </ErrorLabel>
-    </Box>
+    </RootContainer>
   )
 })
 
@@ -216,6 +253,7 @@ Field.defaultProps = {
   sufixElement: undefined,
   browserAutoComplete: undefined,
   fileTypeOptions: undefined,
+  styleMode: undefined,
   type: 'text',
 }
 

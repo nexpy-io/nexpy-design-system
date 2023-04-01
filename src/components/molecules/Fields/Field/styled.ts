@@ -2,10 +2,14 @@ import styled, { css } from '@xstyled/styled-components'
 
 import { Text, TextProps, Box, BoxProps, Span, SpanProps } from 'components/atoms'
 
+import { StyleModes } from 'types'
+import { getVariant } from 'utils'
+
 type StateProps = {
   isFocused?: boolean
   disabled?: boolean
   error?: string | undefined | null | 'generic_error'
+  styleMode?: StyleModes
 }
 
 type FieldLabelProps = TextProps & StateProps
@@ -13,6 +17,114 @@ type FieldLabelProps = TextProps & StateProps
 type InputContainerProps = BoxProps & StateProps
 
 type FileInputSpanButtonProps = SpanProps & StateProps
+
+const rootStyleModeVariant = getVariant<InputContainerProps, StyleModes>({
+  prop: 'styleMode',
+  default: 'default',
+  variants: {
+    default: css``,
+    minimalist: css`
+      &:has(input:not(:placeholder-shown)) {
+        label {
+          top: -1.6rem;
+          opacity: 0.8;
+          font-size: 1.2rem;
+        }
+      }
+    `,
+  },
+})
+
+const containerStyleModeVariant = getVariant<InputContainerProps, StyleModes>({
+  prop: 'styleMode',
+  default: 'default',
+  variants: {
+    default: css``,
+    minimalist: ({ isFocused, error }) => css`
+      outline: none !important;
+      border-radius: none !important;
+
+      border-bottom-width: 1px;
+      border-bottom-color: systemPrimary;
+
+      input {
+        padding: 0.25em 0.375em 0.2em 0em;
+        height: 4rem;
+      }
+
+      input::placeholder {
+        transition: unset;
+
+        opacity: 0;
+      }
+
+      ${isFocused &&
+      css`
+        border-bottom-color: systemFocus;
+
+        input::placeholder {
+          transition: all 0.2s ease 0.1s;
+          opacity: 0.4;
+        }
+      `}
+
+      ${Boolean(error) &&
+      css`
+        border-bottom-color: systemDanger;
+      `};
+    `,
+  },
+})
+
+const labelStyleModeVariant = getVariant<FieldLabelProps, StyleModes>({
+  prop: 'styleMode',
+  default: 'default',
+  variants: {
+    default: css``,
+    minimalist: ({ isFocused }) => css`
+      pointer-events: none;
+      opacity: 0.5;
+
+      position: absolute;
+      top: 0.8rem;
+
+      ${isFocused &&
+      css`
+        top: -1.6rem;
+        font-size: 1.2rem;
+        opacity: 1;
+      `}
+    `,
+  },
+})
+
+export const RootContainer = styled(Box)<StateProps>`
+  position: relative;
+
+  ${rootStyleModeVariant}
+`
+
+export const MinimalistBorderHelper = styled(Box)<StateProps>`
+  transition: all 0.2s ease;
+
+  opacity: 0;
+  border-bottom-width: 1px;
+  border-bottom-color: systemPrimary;
+
+  ${({ isFocused }) =>
+    isFocused &&
+    css`
+      opacity: 1;
+      border-bottom-color: systemFocus;
+    `}
+
+  ${({ error }) =>
+    Boolean(error) &&
+    css`
+      opacity: 1;
+      border-bottom-color: systemDanger;
+    `};
+`
 
 export const InputContainer = styled(Box)<InputContainerProps>`
   transition: all 0.2s ease;
@@ -50,11 +162,14 @@ export const InputContainer = styled(Box)<InputContainerProps>`
         outline-color: systemDanger;
       }
     `};
+
+  ${containerStyleModeVariant}
 `
 
 export const FieldLabel = styled(Text)<FieldLabelProps>`
   transition: all 0.2s ease;
   color: systemBlack;
+  font-size: 1.4rem;
 
   ${({ isFocused }) =>
     isFocused &&
@@ -67,6 +182,8 @@ export const FieldLabel = styled(Text)<FieldLabelProps>`
     css`
       color: systemDanger;
     `};
+
+  ${labelStyleModeVariant}
 `
 
 export const ErrorLabel = styled(Text)<FieldLabelProps>`

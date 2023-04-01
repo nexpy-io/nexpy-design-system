@@ -299,4 +299,8 @@ const Button = styled.buttonBox<ButtonProps>`
   ${disabledStyleResolver}
 `
 
+Button.defaultProps = {
+  type: 'button',
+}
+
 export { Button }
