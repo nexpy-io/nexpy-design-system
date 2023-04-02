@@ -12,7 +12,10 @@ type StateProps = {
   styleMode?: StyleModes
 }
 
-type FieldLabelProps = TextProps & StateProps
+type FieldLabelProps = TextProps &
+  StateProps & {
+    type?: string
+  }
 
 type InputContainerProps = BoxProps & StateProps
 
@@ -81,7 +84,7 @@ const labelStyleModeVariant = getVariant<FieldLabelProps, StyleModes>({
   default: 'default',
   variants: {
     default: css``,
-    minimalist: ({ isFocused }) => css`
+    minimalist: ({ isFocused, error, type }) => css`
       pointer-events: none;
       opacity: 0.5;
 
@@ -94,6 +97,34 @@ const labelStyleModeVariant = getVariant<FieldLabelProps, StyleModes>({
         font-size: 1.2rem;
         opacity: 1;
       `}
+
+      ${error &&
+      css`
+        opacity: 0.8;
+        top: -1.6rem;
+        font-size: 1.2rem;
+      `}
+
+      ${type === 'file' &&
+      css`
+        color: systemPrimary;
+      `}
+    `,
+  },
+})
+
+const fileButtonStyleModeVariant = getVariant<FileInputSpanButtonProps, StyleModes>({
+  prop: 'styleMode',
+  default: 'default',
+  variants: {
+    default: css``,
+    minimalist: css`
+      opacity: 0.8;
+      margin-left: 0;
+      border-radius: 0.4rem;
+      background-color: systemPrimary;
+      color: systemWhite;
+      font-size: 1.2rem;
     `,
   },
 })
@@ -201,6 +232,7 @@ export const ErrorLabel = styled(Text)<FieldLabelProps>`
 
 export const FileInputSpanButton = styled(Span)<FileInputSpanButtonProps>`
   cursor: pointer;
+
   width: fit-content;
   white-space: nowrap;
 
@@ -210,6 +242,7 @@ export const FileInputSpanButton = styled(Span)<FileInputSpanButtonProps>`
   border-color: systemTranslucidBlack;
   border-radius: 0.4rem;
   margin-right: 0.4rem;
+  margin-left: 0.4rem;
 
   ${({ disabled }) =>
     !disabled &&
@@ -234,4 +267,6 @@ export const FileInputSpanButton = styled(Span)<FileInputSpanButtonProps>`
         border-color: systemDanger;
       }
     `};
+
+  ${fileButtonStyleModeVariant}
 `

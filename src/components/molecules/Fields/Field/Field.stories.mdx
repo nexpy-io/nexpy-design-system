@@ -81,6 +81,20 @@ This is the `Input` component with xstyled super powers and another elements ins
 
 <Canvas>
   <Field
+    name='file-minimalist'
+    fileTypeOptions={{
+      accept: 'image/png, image/jpeg',
+      inputMessage: 'Enter a file',
+    }}
+    type='file'
+    label='Cat Photo'
+    w='400px'
+    styleMode='minimalist'
+  />
+</Canvas>
+
+<Canvas>
+  <Field
     name='file'
     fileTypeOptions={{
       accept: 'image/png, image/jpeg',

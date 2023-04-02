@@ -27,6 +27,7 @@ export type FieldProps = {
     inputMessage: string
   }
   styleMode?: StyleModes
+  placeholder?: string | undefined
   type?:
     | 'date'
     | 'datetime-local'
@@ -115,6 +116,7 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
         error={error}
         htmlFor={`field-${name}`}
         styleMode={styleMode}
+        type={type}
       >
         {label}
       </FieldLabel>
@@ -133,7 +135,7 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
               display='flex'
               alignItems='center'
               h='4.6rem'
-              m='0 1rem 0 0.4rem'
+              mr='1rem'
               w='100%'
             >
               {type === 'file' && (prefixElement || null)}
@@ -255,6 +257,7 @@ Field.defaultProps = {
   fileTypeOptions: undefined,
   styleMode: undefined,
   type: 'text',
+  placeholder: ' ',
 }
 
 export { Field }
