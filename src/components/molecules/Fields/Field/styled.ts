@@ -84,7 +84,7 @@ const labelStyleModeVariant = getVariant<FieldLabelProps, StyleModes>({
   default: 'default',
   variants: {
     default: css``,
-    minimalist: ({ isFocused, error, type }) => css`
+    minimalist: ({ isFocused, error }) => css`
       pointer-events: none;
       opacity: 0.5;
 
@@ -103,11 +103,6 @@ const labelStyleModeVariant = getVariant<FieldLabelProps, StyleModes>({
         opacity: 0.8;
         top: -1.6rem;
         font-size: 1.2rem;
-      `}
-
-      ${type === 'file' &&
-      css`
-        color: systemPrimary;
       `}
     `,
   },
