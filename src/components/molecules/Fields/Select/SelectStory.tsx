@@ -7,6 +7,7 @@ import { Select } from './Select'
 
 type FormValues = {
   select: string
+  'select-minimalist': string
   'select-search': string
   'error-select': string
   'multi-select': string
@@ -25,6 +26,18 @@ const options = [
   {
     label: 'Option 3',
     value: 'Value 3',
+  },
+  {
+    label: 'Option 4',
+    value: 'Value 4',
+  },
+  {
+    label: 'Option 5',
+    value: 'Value 5',
+  },
+  {
+    label: 'Option 6',
+    value: 'Value 6',
   },
 ]
 
@@ -45,6 +58,14 @@ const SelectStory = () => {
           label='Select'
           options={options}
           control={control}
+          w='300px'
+        />
+        <Select<FormValues>
+          name='select-minimalist'
+          label='Minimalist Select'
+          options={options}
+          control={control}
+          styleMode='minimalist'
           w='300px'
         />
         <Select<FormValues>

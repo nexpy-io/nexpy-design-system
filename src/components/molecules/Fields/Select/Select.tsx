@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -5,12 +6,18 @@ import React, { useMemo, useState } from 'react'
 import { Control, Controller, FieldValues, Path } from 'react-hook-form'
 import ReactSelect from 'react-select'
 
-import { Box } from 'components/atoms'
+import { StyleModeContext } from 'contexts/StyleModeContext'
 
-import { System } from 'types'
+import { StyleModes, System } from 'types'
 import { slugify } from 'utils'
 
-import { SelectContainer, FieldLabel, ErrorLabel } from './styled'
+import {
+  SelectContainer,
+  FieldLabel,
+  ErrorLabel,
+  MinimalistBorderHelper,
+  RootContainer,
+} from './styled'
 
 export type SelectOption = Record<string, any>
 
@@ -26,6 +33,7 @@ export type SelectProps<FormType extends FieldValues> = {
   label: string
   options: Array<SelectOption>
   placeholder?: string
+  styleMode?: StyleModes
 
   control: Control<FormType>
 } & Omit<System<'input'>, 'autoComplete'>
@@ -45,11 +53,20 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
     required,
     placeholder,
     id,
+    styleMode: localStyleMode,
     ...rest
   } = props
 
+  const globalStyleMode = StyleModeContext.useSelector(state => state.defaultStyleMode)
+  const styleMode = useMemo(
+    () => localStyleMode || globalStyleMode,
+    [globalStyleMode, localStyleMode]
+  )
+
   const resolvedId = id || slugify(`select-container-${label}`)
   const resolvedInputId = `select-input-${id}` || slugify(`select-input-${label}`)
+
+  const placeholderId = `react-select-${resolvedId}-placeholder`
 
   const [isFocused, setIsFocused] = useState<boolean>(false)
 
@@ -71,25 +88,54 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
       }),
       option: (provided: any, state: any) => ({
         ...provided,
-        backgroundColor: state.isSelected ? '#2957a4' : 'transparent',
+        backgroundColor: state.isSelected
+          ? styleMode === 'minimalist'
+            ? '#9855ff'
+            : '#2957a4'
+          : 'transparent',
+      }),
+      valueContainer: (provided: any) => ({
+        ...provided,
+        ...(styleMode === 'minimalist'
+          ? {
+              padding: '2px 8px 2px 0',
+              marginLeft: '-2px',
+            }
+          : {}),
       }),
     }),
-    [isMulti]
+    [isMulti, styleMode]
   )
 
   return (
-    <Box m='0.8rem 0' display='inline-block' w='fit-content' {...rest}>
+    <RootContainer
+      m='0.8rem 0'
+      display='inline-block'
+      w='fit-content'
+      {...rest}
+      isFocused={isFocused}
+      styleMode={styleMode}
+      error={error}
+      placeholderId={placeholderId}
+    >
       <FieldLabel
         as='label'
         variant='caption'
         mb='0.4rem'
         isFocused={isFocused}
+        styleMode={styleMode}
         error={error}
         htmlFor={resolvedInputId}
       >
         {label}
       </FieldLabel>
-      <SelectContainer error={error} isFocused={isFocused} disabled={disabled}>
+      <SelectContainer
+        error={error}
+        isFocused={isFocused}
+        styleMode={styleMode}
+        disabled={disabled}
+        placeholderId={placeholderId}
+      >
         <Controller
           name={name}
           control={control}
@@ -153,10 +199,16 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
           }}
         />
       </SelectContainer>
+      <MinimalistBorderHelper
+        error={error}
+        isFocused={isFocused}
+        disabled={disabled}
+        styleMode={styleMode}
+      />
       <ErrorLabel variant='caption' mt='0.2rem' error={error}>
         {error !== 'generic_error' ? error : ''}
       </ErrorLabel>
-    </Box>
+    </RootContainer>
   )
 }
 
@@ -166,6 +218,7 @@ Select.defaultProps = {
   isClearable: true,
   isMulti: undefined,
   enableSearch: undefined,
+  styleMode: undefined,
 }
 
 export { Select }
