@@ -28,6 +28,7 @@ export type FieldProps = {
   }
   styleMode?: StyleModes
   placeholder?: string | undefined
+  customCcurrentFileName?: string | undefined
   type?:
     | 'date'
     | 'datetime-local'
@@ -68,6 +69,7 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
     alt,
     autoFocus,
     browserAutoComplete,
+    customCcurrentFileName,
     styleMode: localStyleMode,
     ...rest
   } = props
@@ -155,7 +157,7 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
                 verticalAlign='middle'
                 lineHeight='3rem'
               >
-                {currentFileName}
+                {customCcurrentFileName || currentFileName}
               </Span>
               {type === 'file' && (sufixElement || null)}
             </Label>
@@ -256,6 +258,7 @@ Field.defaultProps = {
   browserAutoComplete: undefined,
   fileTypeOptions: undefined,
   styleMode: undefined,
+  customCcurrentFileName: undefined,
   type: 'text',
   placeholder: ' ',
 }
