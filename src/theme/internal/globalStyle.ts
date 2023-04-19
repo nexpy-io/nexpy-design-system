@@ -1,4 +1,4 @@
-import { createGlobalStyle, css } from '@xstyled/styled-components'
+import { createGlobalStyle } from '@xstyled/styled-components'
 
 export const GlobalStyle = createGlobalStyle`
   :root {
@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const AdaptativeGlobalStyle = createGlobalStyle<{
-  cssResult: ReturnType<typeof css>
+  css: string
 }>`
   :root {
     font-size: 50%;
@@ -25,5 +25,5 @@ export const AdaptativeGlobalStyle = createGlobalStyle<{
     }
   }
 
-  ${({ cssResult }) => cssResult}
+  ${({ css }) => css}
 `

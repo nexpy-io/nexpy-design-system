@@ -1,6 +1,6 @@
 import React, { useMemo, memo, PropsWithChildren } from 'react'
 
-import { css, ThemeProvider as BaseThemeProvider } from '@xstyled/styled-components'
+import { ThemeProvider as BaseThemeProvider } from '@xstyled/styled-components'
 import { StyleModeProvider } from 'contexts/StyleModeContext'
 import merge from 'lodash/merge'
 
@@ -12,14 +12,14 @@ type ThemeProviderProps = {
   theme?: Record<string, unknown>
   disablePortalContainer?: boolean
   defaultStyleMode?: StyleModes
-  useAdatpativeLayout?: ReturnType<typeof css>
+  renderWithAdaptativeRootRemRefCSS?: string
 }
 
 const ThemeProviderBase = ({
   theme: customTheme,
   disablePortalContainer,
   defaultStyleMode,
-  useAdatpativeLayout,
+  renderWithAdaptativeRootRemRefCSS,
   children,
 }: PropsWithChildren<ThemeProviderProps>) => {
   const mergedTheme = useMemo(() => merge({}, defaultTheme, customTheme), [customTheme])
@@ -27,8 +27,8 @@ const ThemeProviderBase = ({
   return (
     <BaseThemeProvider theme={mergedTheme}>
       <StyleModeProvider defaultStyleMode={defaultStyleMode}>
-        {useAdatpativeLayout ? (
-          <AdaptativeGlobalStyle cssResult={useAdatpativeLayout} />
+        {renderWithAdaptativeRootRemRefCSS ? (
+          <AdaptativeGlobalStyle css={renderWithAdaptativeRootRemRefCSS} />
         ) : (
           <GlobalStyle />
         )}
@@ -46,7 +46,7 @@ ThemeProviderBase.defaultProps = {
   theme: {},
   disablePortalContainer: false,
   defaultStyleMode: undefined,
-  useAdatpativeLayout: undefined,
+  renderWithAdaptativeRootRemRefCSS: undefined,
 }
 
 const ThemeProvider = memo(ThemeProviderBase)
