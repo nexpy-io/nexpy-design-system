@@ -4,7 +4,7 @@
 
 import React, { useMemo, useState } from 'react'
 import { Control, Controller, FieldValues, Path } from 'react-hook-form'
-import ReactSelect from 'react-select'
+import ReactSelect, { MultiValue, SingleValue } from 'react-select'
 
 import { StyleModeContext } from 'contexts/StyleModeContext'
 
@@ -26,7 +26,6 @@ export type SelectProps<FormType extends FieldValues> = {
   enableSearch?: {
     noOptionsMessage: string
   }
-  isMulti?: boolean
   isClearable?: boolean
 
   name: Path<FormType>
@@ -36,7 +35,17 @@ export type SelectProps<FormType extends FieldValues> = {
   styleMode?: StyleModes
 
   control: Control<FormType>
-} & Omit<System<'input'>, 'autoComplete'>
+} & (
+  | {
+      isMulti: true
+      onChange?: (params: MultiValue<SelectOption>) => void
+    }
+  | {
+      isMulti?: false
+      onChange?: (params: SingleValue<SelectOption>) => void
+    }
+) &
+  Omit<System<'input'>, 'autoComplete' | 'onChange'>
 
 const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
   const {
@@ -54,6 +63,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
     placeholder,
     id,
     styleMode: localStyleMode,
+    onChange: customOnChange,
     ...rest
   } = props
 
@@ -151,6 +161,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
                   placeholder={placeholder === undefined ? label : placeholder}
                   isMulti={isMulti}
                   onChange={selectedOptions => {
+                    customOnChange?.(selectedOptions as any)
                     onChange(selectedOptions)
                   }}
                   onBlur={() => {
@@ -178,7 +189,10 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
                 styles={customSelectStyles}
                 options={options}
                 placeholder={placeholder === undefined ? label : placeholder}
-                onChange={selectedOption => onChange(selectedOption?.value || null)}
+                onChange={selectedOption => {
+                  customOnChange?.(selectedOption as any)
+                  onChange(selectedOption?.value || null)
+                }}
                 onBlur={() => {
                   onBlur()
                   setIsFocused(false)
@@ -216,7 +230,6 @@ Select.defaultProps = {
   error: undefined,
   placeholder: undefined,
   isClearable: true,
-  isMulti: undefined,
   enableSearch: undefined,
   styleMode: undefined,
 }
