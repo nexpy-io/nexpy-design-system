@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -31,6 +32,7 @@ export type AsyncSelectProps<FormType extends FieldValues> = {
   placeholder?: string
 
   control: Control<FormType>
+  reactSelectProps?: any
 } & Omit<System<'input'>, 'autoComplete' | 'defaultValue'>
 
 const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormType>) => {
@@ -49,6 +51,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
     required,
     placeholder,
     id,
+    reactSelectProps,
     ...rest
   } = props
 
@@ -124,6 +127,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
             if (isMulti) {
               return (
                 <ReactSelectAsync<AsyncSelectOption, true>
+                  {...reactSelectProps}
                   id={resolvedId}
                   instanceId={resolvedId}
                   inputId={resolvedInputId}
@@ -158,6 +162,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
 
             return (
               <ReactSelectAsync
+                {...reactSelectProps}
                 id={resolvedId}
                 instanceId={resolvedId}
                 inputId={resolvedInputId}
@@ -168,7 +173,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
                   if (!selectedOption && defaultOptions) {
                     setOptions(defaultOptions)
                   }
-
+                  // @ts-ignore
                   onChange(selectedOption?.value || null)
                 }}
                 onBlur={() => {
@@ -208,6 +213,7 @@ AsyncSelect.defaultProps = {
   isClearable: true,
   placeholder: undefined,
   isMulti: undefined,
+  reactSelectProps: undefined,
 }
 
 export { AsyncSelect }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -35,6 +36,8 @@ export type SelectProps<FormType extends FieldValues> = {
   styleMode?: StyleModes
 
   control: Control<FormType>
+
+  reactSelectProps?: any
 } & (
   | {
       isMulti: true
@@ -64,6 +67,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
     id,
     styleMode: localStyleMode,
     onChange: customOnChange,
+    reactSelectProps,
     ...rest
   } = props
 
@@ -153,6 +157,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
             if (isMulti) {
               return (
                 <ReactSelect<SelectOption, true>
+                  {...reactSelectProps}
                   id={resolvedId}
                   instanceId={resolvedId}
                   inputId={resolvedInputId}
@@ -183,6 +188,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
 
             return (
               <ReactSelect
+                {...reactSelectProps}
                 id={resolvedId}
                 instanceId={resolvedId}
                 inputId={resolvedInputId}
@@ -191,6 +197,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
                 placeholder={placeholder === undefined ? label : placeholder}
                 onChange={selectedOption => {
                   customOnChange?.(selectedOption as any)
+                  // @ts-ignore
                   onChange(selectedOption?.value || null)
                 }}
                 onBlur={() => {
@@ -232,6 +239,7 @@ Select.defaultProps = {
   isClearable: true,
   enableSearch: undefined,
   styleMode: undefined,
+  reactSelectProps: undefined,
 }
 
 export { Select }
