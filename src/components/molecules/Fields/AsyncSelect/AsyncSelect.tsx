@@ -33,6 +33,7 @@ export type AsyncSelectProps<FormType extends FieldValues> = {
 
   control: Control<FormType>
   reactSelectProps?: any
+  reactSelectStyles?: any
 } & Omit<System<'input'>, 'autoComplete' | 'defaultValue'>
 
 const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormType>) => {
@@ -52,6 +53,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
     placeholder,
     id,
     reactSelectProps,
+    reactSelectStyles,
     ...rest
   } = props
 
@@ -97,8 +99,10 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
         ...provided,
         backgroundColor: state.isSelected ? '#2957a4' : 'transparent',
       }),
+      menuPortal: (provided: any) => ({ ...provided, zIndex: 9999 }),
+      ...reactSelectStyles,
     }),
-    [isMulti]
+    [isMulti, reactSelectStyles]
   )
 
   useEffect(() => {
@@ -214,6 +218,7 @@ AsyncSelect.defaultProps = {
   placeholder: undefined,
   isMulti: undefined,
   reactSelectProps: undefined,
+  reactSelectStyles: undefined,
 }
 
 export { AsyncSelect }

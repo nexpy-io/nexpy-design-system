@@ -38,6 +38,7 @@ export type SelectProps<FormType extends FieldValues> = {
   control: Control<FormType>
 
   reactSelectProps?: any
+  reactSelectStyles?: any
 } & (
   | {
       isMulti: true
@@ -68,6 +69,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
     styleMode: localStyleMode,
     onChange: customOnChange,
     reactSelectProps,
+    reactSelectStyles,
     ...rest
   } = props
 
@@ -117,8 +119,10 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
             }
           : {}),
       }),
+      menuPortal: (provided: any) => ({ ...provided, zIndex: 9999 }),
+      ...reactSelectStyles,
     }),
-    [isMulti, styleMode]
+    [isMulti, reactSelectStyles, styleMode]
   )
 
   return (
@@ -240,6 +244,7 @@ Select.defaultProps = {
   enableSearch: undefined,
   styleMode: undefined,
   reactSelectProps: undefined,
+  reactSelectStyles: undefined,
 }
 
 export { Select }
