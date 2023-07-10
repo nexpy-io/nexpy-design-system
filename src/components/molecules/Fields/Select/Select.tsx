@@ -39,6 +39,7 @@ export type SelectProps<FormType extends FieldValues> = {
 
   reactSelectProps?: any
   reactSelectStyles?: any
+  reactSelectRef?: any
 } & (
   | {
       isMulti: true
@@ -70,6 +71,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
     onChange: customOnChange,
     reactSelectProps,
     reactSelectStyles,
+    reactSelectRef,
     ...rest
   } = props
 
@@ -162,6 +164,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
               return (
                 <ReactSelect<SelectOption, true>
                   {...reactSelectProps}
+                  ref={reactSelectRef}
                   id={resolvedId}
                   instanceId={resolvedId}
                   inputId={resolvedInputId}
@@ -193,6 +196,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
             return (
               <ReactSelect
                 {...reactSelectProps}
+                ref={reactSelectRef}
                 id={resolvedId}
                 instanceId={resolvedId}
                 inputId={resolvedInputId}
@@ -245,6 +249,7 @@ Select.defaultProps = {
   styleMode: undefined,
   reactSelectProps: undefined,
   reactSelectStyles: undefined,
+  reactSelectRef: undefined,
 }
 
 export { Select }
