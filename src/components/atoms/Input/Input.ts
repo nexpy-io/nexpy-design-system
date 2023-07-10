@@ -19,6 +19,12 @@ const Input = styled.inputBox<InputProps>`
     font-size: default;
     font-weight: normal;
   }
+
+  &:focus-visible {
+    outline-width: 1px !important;
+    outline-style: solid !important;
+    outline-color: systemPrimary !important;
+  }
 `
 
 export { Input }
