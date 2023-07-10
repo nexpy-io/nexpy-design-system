@@ -34,7 +34,6 @@ export type AsyncSelectProps<FormType extends FieldValues> = {
   control: Control<FormType>
   reactSelectProps?: any
   reactSelectStyles?: any
-  reactSelectRef?: any
 } & Omit<System<'input'>, 'autoComplete' | 'defaultValue'>
 
 const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormType>) => {
@@ -55,7 +54,6 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
     id,
     reactSelectProps,
     reactSelectStyles,
-    reactSelectRef,
     ...rest
   } = props
 
@@ -129,12 +127,13 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
         <Controller
           name={name}
           control={control}
-          render={({ field: { value, onBlur, onChange } }) => {
+          render={({ field: { value, onBlur, onChange, name: controllerName, ref } }) => {
             if (isMulti) {
               return (
                 <ReactSelectAsync<AsyncSelectOption, true>
                   {...reactSelectProps}
-                  ref={reactSelectRef}
+                  name={controllerName}
+                  ref={ref}
                   id={resolvedId}
                   instanceId={resolvedId}
                   inputId={resolvedInputId}
@@ -170,7 +169,8 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
             return (
               <ReactSelectAsync
                 {...reactSelectProps}
-                ref={reactSelectRef}
+                name={controllerName}
+                ref={ref}
                 id={resolvedId}
                 instanceId={resolvedId}
                 inputId={resolvedInputId}
@@ -223,7 +223,6 @@ AsyncSelect.defaultProps = {
   isMulti: undefined,
   reactSelectProps: undefined,
   reactSelectStyles: undefined,
-  reactSelectRef: undefined,
 }
 
 export { AsyncSelect }
