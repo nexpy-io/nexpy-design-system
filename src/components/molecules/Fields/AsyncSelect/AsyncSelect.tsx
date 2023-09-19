@@ -21,10 +21,11 @@ export type AsyncSelectProps<FormType extends FieldValues> = {
   error?: string | undefined | null | 'generic_error'
   noOptionsMessage: string
   isMulti?: boolean
-  loadOptions: (inputValue: string) => Promise<AsyncSelectOption[]>
+  loadOptions: (inputValue?: string | undefined) => Promise<AsyncSelectOption[]>
   defaultOptions?: AsyncSelectOption[]
   debounceTime?: number
   isClearable?: boolean
+  isSearchable?: boolean
 
   name: Path<FormType>
   label: string
@@ -44,6 +45,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
     label,
     debounceTime,
     isClearable,
+    isSearchable,
     error,
     isMulti,
     noOptionsMessage,
@@ -160,7 +162,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
                   aria-label={label}
                   isDisabled={disabled}
                   data-cy={slugify(`select-${label}`)}
-                  isSearchable
+                  isSearchable={isSearchable}
                   noOptionsMessage={() => noOptionsMessage}
                 />
               )
@@ -200,7 +202,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
                 aria-label={label}
                 isDisabled={disabled}
                 data-cy={slugify(`select-${label}`)}
-                isSearchable
+                isSearchable={isSearchable}
                 noOptionsMessage={() => noOptionsMessage}
               />
             )
@@ -219,6 +221,7 @@ AsyncSelect.defaultProps = {
   defaultOptions: undefined,
   debounceTime: 700,
   isClearable: true,
+  isSearchable: true,
   placeholder: undefined,
   isMulti: undefined,
   reactSelectProps: undefined,
