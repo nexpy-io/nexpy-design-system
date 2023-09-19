@@ -57,11 +57,13 @@ const AsyncSelectStory = () => {
     },
   })
 
-  const handleLoadOptions = (searchValue: string) =>
+  const handleLoadOptions = (searchValue?: string) =>
     new Promise<AsyncSelectOption[]>(resolve => {
       setTimeout(() => {
         resolve(
-          options.filter(i => i.label.toLowerCase().includes(searchValue.toLowerCase()))
+          options.filter(i =>
+            i.label.toLowerCase().includes(searchValue?.toLowerCase() || '')
+          )
         )
       }, 700)
     })
