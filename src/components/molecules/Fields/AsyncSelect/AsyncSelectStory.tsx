@@ -7,6 +7,7 @@ import { AsyncSelect, AsyncSelectOption } from './AsyncSelect'
 
 type FormValues = {
   select: string
+  minimalist: string
   'multi-select': AsyncSelectOption[]
   'select-default': string
   'multi-select-default': AsyncSelectOption[]
@@ -83,6 +84,16 @@ const AsyncSelectStory = () => {
           defaultOptions={options}
           loadOptions={handleLoadOptions}
           control={control}
+        />
+        <AsyncSelect<FormValues>
+          w='400px'
+          name='minimalist'
+          label='Minimalist Select'
+          noOptionsMessage='No options found'
+          defaultOptions={options}
+          loadOptions={handleLoadOptions}
+          control={control}
+          styleMode='minimalist'
         />
         <AsyncSelect<FormValues>
           w='400px'

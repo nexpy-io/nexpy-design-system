@@ -247,7 +247,10 @@ Select.defaultProps = {
   isClearable: true,
   enableSearch: undefined,
   styleMode: undefined,
-  reactSelectProps: undefined,
+  reactSelectProps: {
+    menuPosition: 'fixed',
+    menuPlacement: 'auto',
+  },
   reactSelectStyles: undefined,
 }
 

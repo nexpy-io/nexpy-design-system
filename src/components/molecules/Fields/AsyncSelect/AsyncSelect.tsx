@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -6,14 +7,19 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Control, Controller, FieldValues, Path } from 'react-hook-form'
 import ReactSelectAsync from 'react-select/async'
 
+import { StyleModeContext } from 'contexts/StyleModeContext'
 import debounce from 'lodash/debounce'
 
-import { Box } from 'components/atoms'
-
-import { System } from 'types'
+import { StyleModes, System } from 'types'
 import { slugify } from 'utils'
 
-import { SelectContainer, FieldLabel, ErrorLabel } from './styled'
+import {
+  SelectContainer,
+  FieldLabel,
+  ErrorLabel,
+  RootContainer,
+  MinimalistBorderHelper,
+} from './styled'
 
 export type AsyncSelectOption = Record<string, any>
 
@@ -26,6 +32,7 @@ export type AsyncSelectProps<FormType extends FieldValues> = {
   debounceTime?: number
   isClearable?: boolean
   isSearchable?: boolean
+  styleMode?: StyleModes
 
   name: Path<FormType>
   label: string
@@ -56,11 +63,20 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
     id,
     reactSelectProps,
     reactSelectStyles,
+    styleMode: localStyleMode,
     ...rest
   } = props
 
+  const globalStyleMode = StyleModeContext.useSelector(state => state.defaultStyleMode)
+  const styleMode = useMemo(
+    () => localStyleMode || globalStyleMode,
+    [globalStyleMode, localStyleMode]
+  )
+
   const resolvedId = id || slugify(`select-container-${label}`)
   const resolvedInputId = `select-input-${id}` || slugify(`select-input-${label}`)
+
+  const placeholderId = `react-select-${resolvedId}-placeholder`
 
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -103,12 +119,25 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
       }),
       option: (provided: any, state: any) => ({
         ...provided,
-        backgroundColor: state.isSelected ? '#2957a4' : 'transparent',
+        backgroundColor: state.isSelected
+          ? styleMode === 'minimalist'
+            ? '#9855ff'
+            : '#2957a4'
+          : 'transparent',
+      }),
+      valueContainer: (provided: any) => ({
+        ...provided,
+        ...(styleMode === 'minimalist'
+          ? {
+              padding: '2px 8px 2px 0',
+              marginLeft: '-2px',
+            }
+          : {}),
       }),
       menuPortal: (provided: any) => ({ ...provided, zIndex: 9999 }),
       ...reactSelectStyles,
     }),
-    [isMulti, reactSelectStyles]
+    [isMulti, reactSelectStyles, styleMode]
   )
 
   useEffect(() => {
@@ -139,7 +168,16 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
   }, [isSearchable, loadOptions])
 
   return (
-    <Box m='0.8rem 0' display='inline-block' w='fit-content' {...rest}>
+    <RootContainer
+      m='0.8rem 0'
+      display='inline-block'
+      w='fit-content'
+      {...rest}
+      isFocused={isFocused}
+      styleMode={styleMode}
+      error={error}
+      placeholderId={placeholderId}
+    >
       <FieldLabel
         as='label'
         variant='caption'
@@ -147,10 +185,18 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
         isFocused={isFocused}
         error={error}
         htmlFor={resolvedInputId}
+        styleMode={styleMode}
+        disabled={disabled}
       >
         {label}
       </FieldLabel>
-      <SelectContainer error={error} isFocused={isFocused} disabled={disabled}>
+      <SelectContainer
+        error={error}
+        isFocused={isFocused}
+        disabled={disabled}
+        styleMode={styleMode}
+        placeholderId={placeholderId}
+      >
         <Controller
           name={name}
           control={control}
@@ -236,10 +282,16 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
           }}
         />
       </SelectContainer>
+      <MinimalistBorderHelper
+        error={error}
+        isFocused={isFocused}
+        disabled={disabled}
+        styleMode={styleMode}
+      />
       <ErrorLabel variant='caption' mt='0.2rem' error={error}>
         {error !== 'generic_error' ? error : ''}
       </ErrorLabel>
-    </Box>
+    </RootContainer>
   )
 }
 
@@ -247,11 +299,15 @@ AsyncSelect.defaultProps = {
   error: undefined,
   defaultOptions: undefined,
   debounceTime: 700,
+  styleMode: undefined,
   isClearable: true,
   isSearchable: true,
   placeholder: undefined,
   isMulti: undefined,
-  reactSelectProps: undefined,
+  reactSelectProps: {
+    menuPosition: 'fixed',
+    menuPlacement: 'auto',
+  },
   reactSelectStyles: undefined,
 }
 
