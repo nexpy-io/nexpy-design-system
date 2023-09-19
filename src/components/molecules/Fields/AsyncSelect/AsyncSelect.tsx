@@ -41,7 +41,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
   const {
     control,
     loadOptions,
-    defaultOptions,
+    defaultOptions: initDefaultOptions,
     label,
     debounceTime,
     isClearable,
@@ -63,7 +63,11 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
   const resolvedInputId = `select-input-${id}` || slugify(`select-input-${label}`)
 
   const [isFocused, setIsFocused] = useState<boolean>(false)
-  const [options, setOptions] = useState<AsyncSelectOption[]>(defaultOptions || [])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [options, setOptions] = useState<AsyncSelectOption[]>(initDefaultOptions || [])
+  const [defaultOptions, setDefaultOptions] = useState<AsyncSelectOption[] | undefined>(
+    initDefaultOptions || []
+  )
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const loadOptionsResolver = useCallback(
@@ -108,10 +112,31 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
   )
 
   useEffect(() => {
-    if (defaultOptions) {
+    if (defaultOptions?.length) {
       setOptions(defaultOptions)
     }
   }, [defaultOptions])
+
+  useEffect(() => {
+    if (!isSearchable) {
+      const resolve = async () => {
+        const opts = await loadOptions()
+
+        setDefaultOptions(opts)
+      }
+
+      try {
+        setIsLoading(true)
+
+        resolve()
+      } catch (resolveerror) {
+        // eslint-disable-next-line no-console
+        console.error(resolveerror)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+  }, [isSearchable, loadOptions])
 
   return (
     <Box m='0.8rem 0' display='inline-block' w='fit-content' {...rest}>
@@ -164,6 +189,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
                   data-cy={slugify(`select-${label}`)}
                   isSearchable={isSearchable}
                   noOptionsMessage={() => noOptionsMessage}
+                  isLoading={isLoading}
                 />
               )
             }
@@ -204,6 +230,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
                 data-cy={slugify(`select-${label}`)}
                 isSearchable={isSearchable}
                 noOptionsMessage={() => noOptionsMessage}
+                isLoading={isLoading}
               />
             )
           }}
