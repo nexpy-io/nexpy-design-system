@@ -38,6 +38,7 @@ export type AsyncSelectProps<FormType extends FieldValues> = {
   label: string
 
   placeholder?: string
+  selectedColor?: string
 
   control: Control<FormType>
   reactSelectProps?: any
@@ -53,6 +54,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
     debounceTime,
     isClearable,
     isSearchable,
+    selectedColor,
     error,
     isMulti,
     noOptionsMessage,
@@ -121,7 +123,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
         ...provided,
         backgroundColor: state.isSelected
           ? styleMode === 'minimalist'
-            ? '#9855ff'
+            ? selectedColor || '#9855ff'
             : '#2957a4'
           : 'transparent',
       }),
@@ -137,7 +139,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
       menuPortal: (provided: any) => ({ ...provided, zIndex: 9999 }),
       ...reactSelectStyles,
     }),
-    [isMulti, reactSelectStyles, styleMode]
+    [isMulti, reactSelectStyles, selectedColor, styleMode]
   )
 
   useEffect(() => {
@@ -300,6 +302,7 @@ AsyncSelect.defaultProps = {
   defaultOptions: undefined,
   debounceTime: 700,
   styleMode: undefined,
+  selectedColor: undefined,
   isClearable: true,
   isSearchable: true,
   placeholder: undefined,

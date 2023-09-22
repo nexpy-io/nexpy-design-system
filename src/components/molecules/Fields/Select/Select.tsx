@@ -33,6 +33,7 @@ export type SelectProps<FormType extends FieldValues> = {
   label: string
   options: Array<SelectOption>
   placeholder?: string
+  selectedColor?: string
   styleMode?: StyleModes
 
   control: Control<FormType>
@@ -65,6 +66,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
     name,
     required,
     placeholder,
+    selectedColor,
     id,
     styleMode: localStyleMode,
     onChange: customOnChange,
@@ -106,7 +108,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
         ...provided,
         backgroundColor: state.isSelected
           ? styleMode === 'minimalist'
-            ? '#9855ff'
+            ? selectedColor || '#9855ff'
             : '#2957a4'
           : 'transparent',
       }),
@@ -122,7 +124,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
       menuPortal: (provided: any) => ({ ...provided, zIndex: 9999 }),
       ...reactSelectStyles,
     }),
-    [isMulti, reactSelectStyles, styleMode]
+    [isMulti, reactSelectStyles, selectedColor, styleMode]
   )
 
   return (
@@ -246,6 +248,7 @@ Select.defaultProps = {
   placeholder: undefined,
   isClearable: true,
   enableSearch: undefined,
+  selectedColor: undefined,
   styleMode: undefined,
   reactSelectProps: {
     menuPosition: 'fixed',
