@@ -22,10 +22,6 @@ export const useRegisterFieldFocus = (fieldName?: string | undefined) => {
 
   const autoFocusContextValue = AutoFocusContext.useContext()
 
-  if (fieldName && autoFocusContextValue?.setFocus) {
-    sequentialFieldNamesRef.current.push(fieldName)
-  }
-
   const onKeyDown = useCallback(
     (e: any) => {
       console.log('autoFocusContextValue', autoFocusContextValue)
@@ -69,6 +65,10 @@ export const useRegisterFieldFocus = (fieldName?: string | undefined) => {
   )
 
   useEffect(() => {
+    if (fieldName && autoFocusContextValue?.setFocus) {
+      sequentialFieldNamesRef.current.push(fieldName)
+    }
+
     return () => {
       if (!autoFocusContextValue?.setFocus) {
         return
@@ -80,7 +80,9 @@ export const useRegisterFieldFocus = (fieldName?: string | undefined) => {
         )
       }
     }
-  }, [autoFocusContextValue?.setFocus, fieldName, sequentialFieldNamesRef])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoFocusContextValue?.setFocus])
 
   return onKeyDown
 }
