@@ -129,7 +129,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
     [isMulti, reactSelectStyles, selectedColor, styleMode]
   )
 
-  const onKeyDownAuto = useRegisterFieldFocus(name)
+  const onKeyDownAuto = useRegisterFieldFocus(name, disabled)
 
   return (
     <RootContainer

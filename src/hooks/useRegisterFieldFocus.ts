@@ -1,35 +1,25 @@
-/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect } from 'react'
 
 import { AutoFocusContext } from 'contexts/AutoFocusContext'
 import { FieldNextFocusManagerContext } from 'contexts/FieldNextFocusManagerContext'
 
-export const useRegisterFieldFocus = (fieldName?: string | undefined) => {
+export const useRegisterFieldFocus = (
+  fieldName: string | undefined,
+  isDisabled: boolean | undefined
+) => {
   const sequentialFieldNamesRef = FieldNextFocusManagerContext.useSelector(
     state => state.sequentialFieldNamesRef
   )
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      console.log(sequentialFieldNamesRef.current)
-    }, 1000)
-
-    return () => {
-      clearInterval(t)
-    }
-  }, [sequentialFieldNamesRef])
 
   const autoFocusContextValue = AutoFocusContext.useContext()
 
   const onKeyDown = useCallback(
     (e: any) => {
-      console.log('autoFocusContextValue', autoFocusContextValue)
-      console.log('sequentialFieldNamesRef', sequentialFieldNamesRef)
-
       if (
         !autoFocusContextValue?.setFocus ||
-        !Array.isArray(sequentialFieldNamesRef.current)
+        !Array.isArray(sequentialFieldNamesRef.current) ||
+        isDisabled
       ) {
         return
       }
@@ -41,19 +31,13 @@ export const useRegisterFieldFocus = (fieldName?: string | undefined) => {
           val => val === fieldName
         )
 
-        console.log('fieldIndex', fieldIndex)
-
         if (typeof fieldIndex === 'number' && fieldIndex !== -1) {
           const nextFieldNameIndex = fieldIndex + 1
           const nextFieldName = sequentialFieldNamesRef.current[nextFieldNameIndex]
 
-          console.log('nextFieldName', nextFieldName)
-
           if (nextFieldName) {
             autoFocusContextValue.trigger?.(fieldName).then(passed => {
               if (passed) {
-                console.log('called')
-
                 autoFocusContextValue.setFocus?.(nextFieldName)
               }
             })
@@ -61,19 +45,11 @@ export const useRegisterFieldFocus = (fieldName?: string | undefined) => {
         }
       }
     },
-    [autoFocusContextValue, fieldName, sequentialFieldNamesRef]
+    [autoFocusContextValue, fieldName, isDisabled, sequentialFieldNamesRef]
   )
 
   useEffect(() => {
-    if (fieldName && autoFocusContextValue?.setFocus) {
-      sequentialFieldNamesRef.current.push(fieldName)
-    }
-
-    return () => {
-      if (!autoFocusContextValue?.setFocus) {
-        return
-      }
-
+    const clear = () => {
       if (Array.isArray(sequentialFieldNamesRef.current)) {
         sequentialFieldNamesRef.current = sequentialFieldNamesRef.current.filter(
           val => val !== fieldName
@@ -81,8 +57,18 @@ export const useRegisterFieldFocus = (fieldName?: string | undefined) => {
       }
     }
 
+    if (isDisabled) {
+      return clear
+    }
+
+    if (fieldName && autoFocusContextValue?.setFocus) {
+      sequentialFieldNamesRef.current.push(fieldName)
+    }
+
+    return clear
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoFocusContextValue?.setFocus])
+  }, [autoFocusContextValue?.setFocus, isDisabled])
 
   return onKeyDown
 }

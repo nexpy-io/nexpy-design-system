@@ -100,7 +100,7 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
     setIsFocused(false)
   }
 
-  const onKeyDown = useRegisterFieldFocus(name)
+  const onKeyDown = useRegisterFieldFocus(name, disabled)
 
   return (
     <RootContainer

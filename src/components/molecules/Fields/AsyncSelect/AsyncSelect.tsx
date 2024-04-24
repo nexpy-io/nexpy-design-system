@@ -171,7 +171,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
     }
   }, [isSearchable, loadOptions])
 
-  const onKeyDownAuto = useRegisterFieldFocus(name)
+  const onKeyDownAuto = useRegisterFieldFocus(name, disabled)
 
   return (
     <RootContainer
