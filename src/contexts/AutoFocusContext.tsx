@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react'
+import React, { useMemo } from 'react'
 import { FieldValues, UseFormSetFocus, UseFormTrigger } from 'react-hook-form'
 
 import { createContext } from '@nexpy/react-easy-context-api'
@@ -26,14 +26,13 @@ export const AutoFocus = <FormValues extends FieldValues>({
   trigger,
   setFocus,
 }: AutoFocusProviderProps<FormValues>) => {
-  return (
-    <AutoFocusContext.Provider
-      value={{
-        trigger,
-        setFocus,
-      }}
-    >
-      {children}
-    </AutoFocusContext.Provider>
+  const value = useMemo(
+    () => ({
+      trigger,
+      setFocus,
+    }),
+    [setFocus, trigger]
   )
+
+  return <AutoFocusContext.Provider value={value}>{children}</AutoFocusContext.Provider>
 }

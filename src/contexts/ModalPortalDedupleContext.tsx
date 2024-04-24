@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { createContext } from '@nexpy/react-easy-context-api'
 
@@ -12,10 +12,12 @@ export const ModalPortalDedupleContext = createContext<ModalPortalDedupleContext
   parentModalAlreadyExistsUsingPortal: false,
 })
 
-export const ModalPortalDedupleProvider = ({ children }: WithChildren) => (
-  <ModalPortalDedupleContext.Provider
-    value={{ parentModalAlreadyExistsUsingPortal: true }}
-  >
-    {children}
-  </ModalPortalDedupleContext.Provider>
-)
+export const ModalPortalDedupleProvider = ({ children }: WithChildren) => {
+  const value = useMemo(() => ({ parentModalAlreadyExistsUsingPortal: true }), [])
+
+  return (
+    <ModalPortalDedupleContext.Provider value={value}>
+      {children}
+    </ModalPortalDedupleContext.Provider>
+  )
+}

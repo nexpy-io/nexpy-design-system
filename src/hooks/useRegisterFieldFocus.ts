@@ -11,6 +11,8 @@ export const useRegisterFieldFocus = (
   const sequentialFieldNamesRef = FieldNextFocusManagerContext.useSelector(
     state => state.sequentialFieldNamesRef
   )
+  const renderIndex = FieldNextFocusManagerContext.useSelector(state => state.renderIndex)
+  const dispatch = FieldNextFocusManagerContext.useSelector(state => state.dispatch)
 
   const autoFocusContextValue = AutoFocusContext.useContext()
 
@@ -68,7 +70,13 @@ export const useRegisterFieldFocus = (
     return clear
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoFocusContextValue?.setFocus, isDisabled])
+  }, [autoFocusContextValue?.setFocus, isDisabled, renderIndex])
+
+  useEffect(() => {
+    dispatch()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDisabled])
 
   return onKeyDown
 }
