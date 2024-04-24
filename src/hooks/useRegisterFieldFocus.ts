@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect } from 'react'
 
@@ -9,6 +10,16 @@ export const useRegisterFieldFocus = (fieldName?: string | undefined) => {
     state => state.sequentialFieldNamesRef
   )
 
+  useEffect(() => {
+    const t = setInterval(() => {
+      console.log(sequentialFieldNamesRef.current)
+    }, 1000)
+
+    return () => {
+      clearInterval(t)
+    }
+  }, [sequentialFieldNamesRef])
+
   const autoFocusContextValue = AutoFocusContext.useContext()
 
   if (fieldName && autoFocusContextValue?.setFocus) {
@@ -17,6 +28,9 @@ export const useRegisterFieldFocus = (fieldName?: string | undefined) => {
 
   const onKeyDown = useCallback(
     (e: any) => {
+      console.log('autoFocusContextValue', autoFocusContextValue)
+      console.log('sequentialFieldNamesRef', sequentialFieldNamesRef)
+
       if (
         !autoFocusContextValue?.setFocus ||
         !Array.isArray(sequentialFieldNamesRef.current)
@@ -31,13 +45,19 @@ export const useRegisterFieldFocus = (fieldName?: string | undefined) => {
           val => val === fieldName
         )
 
+        console.log('fieldIndex', fieldIndex)
+
         if (typeof fieldIndex === 'number' && fieldIndex !== -1) {
           const nextFieldNameIndex = fieldIndex + 1
           const nextFieldName = sequentialFieldNamesRef.current[nextFieldNameIndex]
 
+          console.log('nextFieldName', nextFieldName)
+
           if (nextFieldName) {
             autoFocusContextValue.trigger?.(fieldName).then(passed => {
               if (passed) {
+                console.log('called')
+
                 autoFocusContextValue.setFocus?.(nextFieldName)
               }
             })
