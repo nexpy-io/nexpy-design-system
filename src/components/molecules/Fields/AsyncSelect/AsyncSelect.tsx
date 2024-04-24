@@ -10,6 +10,7 @@ import ReactSelectAsync from 'react-select/async'
 import { StyleModeContext } from 'contexts/StyleModeContext'
 import debounce from 'lodash/debounce'
 
+import { useRegisterFieldFocus } from 'hooks/useRegisterFieldFocus'
 import { StyleModes, System } from 'types'
 import { slugify } from 'utils'
 
@@ -66,6 +67,7 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
     reactSelectProps,
     reactSelectStyles,
     styleMode: localStyleMode,
+    onKeyDown,
     ...rest
   } = props
 
@@ -169,6 +171,8 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
     }
   }, [isSearchable, loadOptions])
 
+  const onKeyDownAuto = useRegisterFieldFocus(name)
+
   return (
     <RootContainer
       m='0.8rem 0'
@@ -238,6 +242,13 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
                   isSearchable={isSearchable}
                   noOptionsMessage={() => noOptionsMessage}
                   isLoading={isLoading}
+                  onKeyDown={e => {
+                    onKeyDownAuto(e)
+
+                    if (typeof onKeyDown === 'function') {
+                      onKeyDown(e as any)
+                    }
+                  }}
                 />
               )
             }
@@ -279,6 +290,13 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
                 isSearchable={isSearchable}
                 noOptionsMessage={() => noOptionsMessage}
                 isLoading={isLoading}
+                onKeyDown={e => {
+                  onKeyDownAuto(e)
+
+                  if (typeof onKeyDown === 'function') {
+                    onKeyDown(e as any)
+                  }
+                }}
               />
             )
           }}

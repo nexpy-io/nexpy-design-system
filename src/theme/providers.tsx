@@ -1,6 +1,7 @@
 import React, { useMemo, memo, PropsWithChildren } from 'react'
 
 import { ThemeProvider as BaseThemeProvider } from '@xstyled/styled-components'
+import { FieldNextFocusManagerProvider } from 'contexts/FieldNextFocusManagerContext'
 import { StyleModeProvider } from 'contexts/StyleModeContext'
 import merge from 'lodash/merge'
 
@@ -27,16 +28,18 @@ const ThemeProviderBase = ({
   return (
     <BaseThemeProvider theme={mergedTheme}>
       <StyleModeProvider defaultStyleMode={defaultStyleMode}>
-        {renderWithAdaptativeRootRemRefCSS ? (
-          <AdaptativeGlobalStyle css={renderWithAdaptativeRootRemRefCSS} />
-        ) : (
-          <GlobalStyle />
-        )}
-        {children}
+        <FieldNextFocusManagerProvider>
+          {renderWithAdaptativeRootRemRefCSS ? (
+            <AdaptativeGlobalStyle css={renderWithAdaptativeRootRemRefCSS} />
+          ) : (
+            <GlobalStyle />
+          )}
+          {children}
 
-        {disablePortalContainer !== true ? (
-          <div id={ROOT_DESIGN_SYSTEM_PORTALS_CONTAINER_ID} />
-        ) : null}
+          {disablePortalContainer !== true ? (
+            <div id={ROOT_DESIGN_SYSTEM_PORTALS_CONTAINER_ID} />
+          ) : null}
+        </FieldNextFocusManagerProvider>
       </StyleModeProvider>
     </BaseThemeProvider>
   )

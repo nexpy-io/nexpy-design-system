@@ -9,6 +9,7 @@ import ReactSelect, { MultiValue, SingleValue } from 'react-select'
 
 import { StyleModeContext } from 'contexts/StyleModeContext'
 
+import { useRegisterFieldFocus } from 'hooks/useRegisterFieldFocus'
 import { StyleModes, System } from 'types'
 import { slugify } from 'utils'
 
@@ -72,6 +73,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
     onChange: customOnChange,
     reactSelectProps,
     reactSelectStyles,
+    onKeyDown,
     ...rest
   } = props
 
@@ -126,6 +128,8 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
     }),
     [isMulti, reactSelectStyles, selectedColor, styleMode]
   )
+
+  const onKeyDownAuto = useRegisterFieldFocus(name)
 
   return (
     <RootContainer
@@ -190,6 +194,13 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
                   data-cy={resolvedId}
                   isSearchable={Boolean(enableSearch)}
                   noOptionsMessage={() => enableSearch?.noOptionsMessage}
+                  onKeyDown={e => {
+                    onKeyDownAuto(e)
+
+                    if (typeof onKeyDown === 'function') {
+                      onKeyDown(e as any)
+                    }
+                  }}
                 />
               )
             }
@@ -225,6 +236,13 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
                 data-cy={resolvedId}
                 isSearchable={Boolean(enableSearch)}
                 noOptionsMessage={() => enableSearch?.noOptionsMessage}
+                onKeyDown={e => {
+                  onKeyDownAuto(e)
+
+                  if (typeof onKeyDown === 'function') {
+                    onKeyDown(e as any)
+                  }
+                }}
               />
             )
           }}

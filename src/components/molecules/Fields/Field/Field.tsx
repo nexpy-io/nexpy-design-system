@@ -5,6 +5,7 @@ import { StyleModeContext } from 'contexts/StyleModeContext'
 
 import { Input, InputProps, Label, Span } from 'components/atoms'
 
+import { useRegisterFieldFocus } from 'hooks/useRegisterFieldFocus'
 import { StyleModes } from 'types'
 
 import {
@@ -98,6 +99,8 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
 
     setIsFocused(false)
   }
+
+  const onKeyDown = useRegisterFieldFocus(name)
 
   return (
     <RootContainer
@@ -199,6 +202,13 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
                   target.blur()
                 }
               }}
+              onKeyDown={e => {
+                onKeyDown(e)
+
+                if (typeof props.onKeyDown === 'function') {
+                  props.onKeyDown(e)
+                }
+              }}
             />
           </>
         ) : (
@@ -230,6 +240,13 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
 
               if (typeof target?.blur === 'function') {
                 target.blur()
+              }
+            }}
+            onKeyDown={e => {
+              onKeyDown(e)
+
+              if (typeof props.onKeyDown === 'function') {
+                props.onKeyDown(e)
               }
             }}
           />
