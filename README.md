@@ -1,5 +1,7 @@
 # Nexpy Design System
 
+**Important**: Storybook temp removed.
+
 [![NPM Package](https://github.com/nexpy-io/nexpy-design-system/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/nexpy-io/nexpy-design-system/actions/workflows/npm-publish.yml)
 
 ## Docs

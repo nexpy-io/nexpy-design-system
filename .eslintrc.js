@@ -29,7 +29,6 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:import/typescript',
     'prettier',
-    'plugin:storybook/recommended',
   ],
   rules: {
     'react/jsx-filename-extension': [
