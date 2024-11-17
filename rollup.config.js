@@ -37,7 +37,7 @@ export default [
       includePaths({
         include: {},
         paths: ['src/'],
-        external: [],
+        external: [/@babel\/runtime/],
         extensions: ['.ts', '.tsx'],
       }),
       json(),
@@ -65,7 +65,7 @@ export default [
       includePaths({
         include: {},
         paths: ['src/'],
-        external: [],
+        external: [/@babel\/runtime/],
         extensions: ['.ts', '.tsx'],
       }),
       json(),
