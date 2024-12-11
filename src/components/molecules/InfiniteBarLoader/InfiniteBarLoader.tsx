@@ -6,7 +6,7 @@ import { System } from 'types'
 
 export type InfiniteBarLoaderProps = System<'div'> & { isVisible: boolean }
 
-const InfiniteBarLoaderContainer = styled.div<InfiniteBarLoaderProps>`
+const InfiniteBarLoaderContainer = styled.divBox<InfiniteBarLoaderProps>`
   position: relative;
   height: 4px;
   display: block;
