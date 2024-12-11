@@ -117,8 +117,8 @@ const Bar = styled.div`
 `
 
 const InfiniteBarLoader = ({ isVisible, ...props }: InfiniteBarLoaderProps) => (
-  <InfiniteBarLoaderContainer isVisible={isVisible}>
-    <Bar {...props} />
+  <InfiniteBarLoaderContainer {...props} isVisible={isVisible}>
+    <Bar />
   </InfiniteBarLoaderContainer>
 )
 
