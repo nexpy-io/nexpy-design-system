@@ -15,7 +15,13 @@ import {
   ModalPortalDedupleContext,
   ModalPortalDedupleProvider,
 } from 'contexts/ModalPortalDedupleContext'
-import { motion, AnimatePresence, AnimationProps } from 'framer-motion'
+import {
+  motion,
+  AnimatePresence,
+  TargetAndTransition,
+  VariantLabels,
+  Transition,
+} from 'framer-motion'
 
 import { FlexProps } from 'components/atoms'
 import { Portal } from 'components/hocs/Portal'
@@ -33,10 +39,10 @@ type ModalFunctionNotation = {
 
 export type ModalProps = {
   customAnimation?: {
-    initial?: AnimationProps['initial']
-    transition?: AnimationProps['transition']
-    in?: AnimationProps['animate']
-    out?: AnimationProps['exit']
+    initial?: TargetAndTransition | VariantLabels | boolean
+    transition?: Transition
+    in?: TargetAndTransition | VariantLabels | boolean
+    out?: TargetAndTransition | VariantLabels
   }
   render: (params: ModalFunctionNotation) => ReactNode
   onClickOutside?: () => void
