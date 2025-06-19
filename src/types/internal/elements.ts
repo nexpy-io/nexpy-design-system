@@ -1,5 +1,5 @@
-import { ElementType, ComponentPropsWithRef } from 'react'
+import { ElementType, PropsWithRef, ComponentProps } from 'react'
 
 export type ElementKey = ElementType
 
-export type IntrinsicProps<E extends ElementKey> = ComponentPropsWithRef<E>
+export type IntrinsicProps<E extends ElementKey> = PropsWithRef<ComponentProps<E>>
