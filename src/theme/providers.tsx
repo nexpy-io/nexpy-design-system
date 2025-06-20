@@ -17,8 +17,8 @@ type ThemeProviderProps = {
 }
 
 const ThemeProviderBase = ({
-  theme: customTheme,
-  disablePortalContainer,
+  theme: customTheme = {},
+  disablePortalContainer = false,
   defaultStyleMode,
   renderWithAdaptativeRootRemRefCSS,
   children,
@@ -43,13 +43,6 @@ const ThemeProviderBase = ({
       </StyleModeProvider>
     </BaseThemeProvider>
   )
-}
-
-ThemeProviderBase.defaultProps = {
-  theme: {},
-  disablePortalContainer: false,
-  defaultStyleMode: undefined,
-  renderWithAdaptativeRootRemRefCSS: undefined,
 }
 
 const ThemeProvider = memo(ThemeProviderBase)

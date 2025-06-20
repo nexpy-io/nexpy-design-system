@@ -247,7 +247,7 @@ const disabledStyleResolver = ({ disabled, variant }: ButtonProps) => {
   return css``
 }
 
-const Button = styled.buttonBox<ButtonProps>`
+const Button = styled.buttonBox.attrs({ type: 'button' })<ButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -298,9 +298,5 @@ const Button = styled.buttonBox<ButtonProps>`
   ${colorModeVariant}
   ${disabledStyleResolver}
 `
-
-Button.defaultProps = {
-  type: 'button',
-}
 
 export { Button }

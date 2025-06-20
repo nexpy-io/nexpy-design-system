@@ -9,7 +9,7 @@ type PortalProps = {
   enabled?: boolean
 }
 
-const PortalBase = ({ children, enabled }: PropsWithChildren<PortalProps>) => {
+const PortalBase = ({ children, enabled = true }: PropsWithChildren<PortalProps>) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -28,10 +28,6 @@ const PortalBase = ({ children, enabled }: PropsWithChildren<PortalProps>) => {
         document.querySelector(`#${ROOT_DESIGN_SYSTEM_PORTALS_CONTAINER_ID}`) as Element
       )
     : null
-}
-
-PortalBase.defaultProps = {
-  enabled: true,
 }
 
 const Portal = memo(PortalBase)

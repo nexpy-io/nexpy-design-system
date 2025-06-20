@@ -53,7 +53,7 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
     prefixElement,
     fileTypeOptions,
     sufixElement,
-    type,
+    type = 'text',
     onFocus,
     onBlur,
     defaultValue,
@@ -64,7 +64,7 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
     list,
     max,
     min,
-    placeholder,
+    placeholder = ' ',
     readOnly,
     step,
     alt,
@@ -267,17 +267,5 @@ const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
 })
 
 Field.displayName = 'Field'
-
-Field.defaultProps = {
-  error: undefined,
-  prefixElement: undefined,
-  sufixElement: undefined,
-  browserAutoComplete: undefined,
-  fileTypeOptions: undefined,
-  styleMode: undefined,
-  customCcurrentFileName: undefined,
-  type: 'text',
-  placeholder: ' ',
-}
 
 export { Field }

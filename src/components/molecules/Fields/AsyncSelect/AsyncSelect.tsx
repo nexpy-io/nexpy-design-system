@@ -52,9 +52,9 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
     loadOptions,
     defaultOptions: initDefaultOptions,
     label,
-    debounceTime,
-    isClearable,
-    isSearchable,
+    debounceTime = 700,
+    isClearable = true,
+    isSearchable = true,
     selectedColor,
     error,
     isMulti,
@@ -64,7 +64,10 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
     required,
     placeholder,
     id,
-    reactSelectProps,
+    reactSelectProps = {
+      menuPosition: 'fixed',
+      menuPlacement: 'auto',
+    },
     reactSelectStyles,
     styleMode: localStyleMode,
     onKeyDown,
@@ -313,23 +316,6 @@ const AsyncSelect = <FormType extends FieldValues>(props: AsyncSelectProps<FormT
       </ErrorLabel>
     </RootContainer>
   )
-}
-
-AsyncSelect.defaultProps = {
-  error: undefined,
-  defaultOptions: undefined,
-  debounceTime: 700,
-  styleMode: undefined,
-  selectedColor: undefined,
-  isClearable: true,
-  isSearchable: true,
-  placeholder: undefined,
-  isMulti: undefined,
-  reactSelectProps: {
-    menuPosition: 'fixed',
-    menuPlacement: 'auto',
-  },
-  reactSelectStyles: undefined,
 }
 
 export { AsyncSelect }

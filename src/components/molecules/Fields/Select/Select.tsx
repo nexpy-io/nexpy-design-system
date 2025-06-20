@@ -61,7 +61,7 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
     error,
     isMulti,
     enableSearch,
-    isClearable,
+    isClearable = true,
     disabled,
     defaultValue,
     name,
@@ -71,7 +71,10 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
     id,
     styleMode: localStyleMode,
     onChange: customOnChange,
-    reactSelectProps,
+    reactSelectProps = {
+      menuPosition: 'fixed',
+      menuPlacement: 'auto',
+    },
     reactSelectStyles,
     onKeyDown,
     ...rest
@@ -259,20 +262,6 @@ const Select = <FormType extends FieldValues>(props: SelectProps<FormType>) => {
       </ErrorLabel>
     </RootContainer>
   )
-}
-
-Select.defaultProps = {
-  error: undefined,
-  placeholder: undefined,
-  isClearable: true,
-  enableSearch: undefined,
-  selectedColor: undefined,
-  styleMode: undefined,
-  reactSelectProps: {
-    menuPosition: 'fixed',
-    menuPlacement: 'auto',
-  },
-  reactSelectStyles: undefined,
 }
 
 export { Select }

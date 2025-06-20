@@ -60,8 +60,17 @@ const ModalBase = ({
   externalIsOpen,
   children,
   backgroundProps,
-  motionContainerProps,
-  disableUseOnClickOutside,
+  motionContainerProps = {
+    style: {
+      position: 'fixed',
+      top: 0,
+      bottom: 0,
+      right: 0,
+      left: 0,
+      zIndex: '10',
+    },
+  },
+  disableUseOnClickOutside = false,
   ...props
 }: ModalProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -125,25 +134,6 @@ const ModalBase = ({
       </ModalPortalDedupleProvider>
     </>
   )
-}
-
-ModalBase.defaultProps = {
-  children: undefined,
-  customAnimation: undefined,
-  onClickOutside: undefined,
-  externalIsOpen: undefined,
-  backgroundProps: undefined,
-  motionContainerProps: {
-    style: {
-      position: 'fixed',
-      top: 0,
-      bottom: 0,
-      right: 0,
-      left: 0,
-      zIndex: '10',
-    },
-  },
-  disableUseOnClickOutside: false,
 }
 
 const Modal = memo(ModalBase)

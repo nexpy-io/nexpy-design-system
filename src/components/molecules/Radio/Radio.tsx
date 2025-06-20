@@ -40,9 +40,4 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
 
 Radio.displayName = 'Radio'
 
-Radio.defaultProps = {
-  labelProps: undefined,
-  containerProps: undefined,
-}
-
 export { Radio }
