@@ -247,7 +247,7 @@ const disabledStyleResolver = ({ disabled, variant }: ButtonProps) => {
   return css``
 }
 
-const Button = styled.buttonBox.attrs({ type: 'button' })<ButtonProps>`
+const Button = styled.buttonBox.attrs<ButtonProps>({ type: 'button' })<ButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
